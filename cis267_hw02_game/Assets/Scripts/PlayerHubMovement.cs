@@ -7,11 +7,12 @@ using UnityEngine.SceneManagement;
 public class PlayerHubMovement : MonoBehaviour
 {
     private Rigidbody2D playerRigidBody;
-    private CircleCollider2D playerCollider;
     public GameObject player;
 
+    //Movement variables
     public float movementSpeed;
-    private Vector2 direction;
+    private float inputHorizontal;
+    private float inputVertical;
     
     // Start is called before the first frame update
     void Start()
@@ -25,11 +26,13 @@ public class PlayerHubMovement : MonoBehaviour
         movePlayer();
     }
 
-    private void movePlayer()
+    private void movePlayer() //Previous version was glitchy
     {
-        direction.x = Input.GetAxisRaw("Horizontal");
-        direction.y = Input.GetAxisRaw("Vertical");
-        playerRigidBody.MovePosition(playerRigidBody.position + direction * movementSpeed * Time.deltaTime);
+        //Get horizontal and vertical input
+        inputHorizontal = Input.GetAxisRaw("Horizontal");
+        inputVertical = Input.GetAxisRaw("Vertical");
+        //Update player's position
+        playerRigidBody.velocity = new Vector2(movementSpeed * inputHorizontal, movementSpeed * inputVertical);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
