@@ -26,7 +26,7 @@ public class PlayerHubMovement : MonoBehaviour
         movePlayer();
     }
 
-    private void movePlayer() //Previous version was glitchy
+    private void movePlayer()
     {
         //Get horizontal and vertical input
         inputHorizontal = Input.GetAxisRaw("Horizontal");

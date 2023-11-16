@@ -828,8 +828,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: cis267_hw02_game
-  metroPackageVersion: 
+  metroPackageName: cis267hw02game
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -837,7 +837,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: cis267_hw02_game
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: cis267_hw02
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
