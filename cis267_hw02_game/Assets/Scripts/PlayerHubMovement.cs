@@ -8,16 +8,28 @@ public class PlayerHubMovement : MonoBehaviour
 {
     private Rigidbody2D playerRigidBody;
     public GameObject player;
+    public Camera cam;
+    public static PlayerHubMovement Instance;
+
+    public GameObject gameManager;
+    private GameManager gm;
 
     //Movement variables
     public float movementSpeed;
     private float inputHorizontal;
     private float inputVertical;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
+        if (Instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        GameObject.DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -33,14 +45,5 @@ public class PlayerHubMovement : MonoBehaviour
         inputVertical = Input.GetAxisRaw("Vertical");
         //Update player's position
         playerRigidBody.velocity = new Vector2(movementSpeed * inputHorizontal, movementSpeed * inputVertical);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("House1"))
-        {
-            SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName("House1"));
-            SceneManager.LoadScene("House1");
-        }
     }
 }

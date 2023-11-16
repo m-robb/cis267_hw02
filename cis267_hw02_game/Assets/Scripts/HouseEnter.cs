@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class HouseEnter : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
+    private bool enterAllowed;
+    public string sceneToLoad;
+    //spawn location of player
+    public Vector2 spawnPlayer;
+    public Camera cam;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,15 +21,25 @@ public class HouseEnter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (enterAllowed == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            DontDestroyOnLoad(player);
+            SceneManager.LoadScene(sceneToLoad);
+            player.transform.position = spawnPlayer;
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName("House1"));
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("House1"));
+            player = collision.gameObject;
+            enterAllowed = true;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        enterAllowed = false;
     }
 }
