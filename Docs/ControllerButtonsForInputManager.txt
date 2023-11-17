@@ -1,0 +1,7 @@
+Default Xbox Controller Buttons (From InputManager):
+Jump: Y
+Fire1: A
+Fire2: B
+Fire:3 X
+Submit: A
+Cancel: B
