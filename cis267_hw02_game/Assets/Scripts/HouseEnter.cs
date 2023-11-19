@@ -21,7 +21,7 @@ public class HouseEnter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enterAllowed == true && Input.GetKeyDown(KeyCode.Space))
+        if (enterAllowed == true && Input.GetAxis("Jump") > 0)
         {
             DontDestroyOnLoad(player);
             SceneManager.LoadScene(sceneToLoad);

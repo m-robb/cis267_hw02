@@ -14,14 +14,12 @@ public class SkeletonMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         position = transform.position;
-        movementSpeed = 2;
-        walkSkeleton();
     }
 
     
     void Update()
     {
-        
+        walkSkeleton();
     }
 
     private void walkSkeleton()
