@@ -11,4 +11,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/House1.unity
     guid: f2a58fd2649f3b44c99bae535350a086
+  - enabled: 1
+    path: Assets/Scenes/Levels/House2.unity
+    guid: cb8da45cc45639f45bd87a328bfa2545
+  - enabled: 1
+    path: Assets/Scenes/Levels/House3.unity
+    guid: 12a41c52d7e217c45b03ac5528648c26
+  - enabled: 1
+    path: Assets/Scenes/Levels/House4.unity
+    guid: f68335c509bc24d40b47aefed02e52d4
+  - enabled: 1
+    path: Assets/Scenes/Levels/House5.unity
+    guid: ea21f94a815918e4ea1138ea267c5a37
+  - enabled: 1
+    path: Assets/Scenes/Levels/House6.unity
+    guid: 56bc6bba45fe33a42abe110827700cca
+  - enabled: 1
+    path: Assets/Scenes/Levels/House7.unity
+    guid: 1974853beaedea74993f9913d4b498b9
+  - enabled: 1
+    path: Assets/Scenes/Levels/Boss01.unity
+    guid: e414a8122983c2d11ab5f09ce5f44762
+  - enabled: 1
+    path: Assets/Scenes/Levels/Boss02.unity
+    guid: e980eb7666ac42863b440dfe80e4295c
+  - enabled: 1
+    path: Assets/Scenes/Levels/Boss03.unity
+    guid: 8eed4349259a1ecf5a332e951397b7b4
   m_configObjects: {}
