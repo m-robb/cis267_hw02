@@ -6,6 +6,7 @@ TagManager:
   tags:
   - House1
   - Platform
+  - HubEnemy
   layers:
   - Default
   - TransparentFX
