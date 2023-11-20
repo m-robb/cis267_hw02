@@ -354,3 +354,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1
   movementDistance: 10
+  waitTime: 5

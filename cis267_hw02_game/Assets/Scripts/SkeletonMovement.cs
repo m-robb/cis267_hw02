@@ -15,6 +15,9 @@ public class SkeletonMovement : MonoBehaviour
     //private Vector2 curPos;
     private bool moveDown;
     private bool canMove;
+        private Vector3 directionDesired;
+        private float lastChange;
+        public float waitTime;
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +27,26 @@ public class SkeletonMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         moveDown = true;
         canMove = true;
+                lastChange = -waitTime;
     }
 
     
     void Update()
     {
-        walkSkeleton();
+                rb.velocity = directionDesired * movementSpeed;
     }
 
-    private void walkSkeleton()
+	private void FixedUpdate() 
+        {
+                if(Time.time >= lastChange + waitTime) 
+                {
+                        lastChange = Time.time; //time since the program launched
+                        randomMovement();
+                }
+	}
+
+
+	private void walkSkeleton()
     {
         if (canMove)
         {
@@ -52,13 +66,11 @@ public class SkeletonMovement : MonoBehaviour
             if (transform.position.y <= startPositionY - movementDistance)
             {
                 moveDown = false;
-                StartCoroutine(moveTimer());
             }
 
             if (transform.position.y >= startPositionY)
             {
                 moveDown = true;
-                StartCoroutine(moveTimer());
             }
         }
 
@@ -66,13 +78,17 @@ public class SkeletonMovement : MonoBehaviour
 
     private void randomMovement()
     {
+                float directionX = Random.Range(-1f,1f);
+                float directionY = Random.Range(-1f, 1f);
+                directionDesired = new Vector3(directionX, directionY, 0).normalized;     //direction skeleton should go
+                Debug.Log(directionDesired);
 
     }
 
     private void stopMoving()
     {
         //stop moving
-        rb.velocity = Vector2.zero;
+        directionDesired = Vector3.zero;
 
 
     }
@@ -85,8 +101,8 @@ public class SkeletonMovement : MonoBehaviour
         {
             if (Vector3.Distance(collision.transform.position, transform.position) >= 1.25)
             {
-                Vector2 desiredDirection = collision.transform.position - transform.position;
-                rb.velocity = desiredDirection * movementSpeed;
+				directionDesired = (collision.transform.position - transform.position).normalized;
+                rb.velocity = directionDesired * movementSpeed;
             }
 
             else
@@ -105,16 +121,5 @@ public class SkeletonMovement : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         canMove = true;
-    }
-
-
-
-    IEnumerator moveTimer()
-    {
-        //canMove = false;
-        //animator.SetBool("isWalking", false);
-        yield return new WaitForSeconds(5);
-        //canMove = true;
-        //walkSkeleton();
     }
 }

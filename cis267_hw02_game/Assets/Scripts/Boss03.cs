@@ -7,7 +7,7 @@ public class Boss03 : MonoBehaviour
 {
     public float movementSpeed;
     public float offset;
-    private bool moveLeft;
+    //private bool moveLeft;
     private float startPosx;
     public float initialGameSpeed = 1f;
     public float gameSpeed;
@@ -16,7 +16,7 @@ public class Boss03 : MonoBehaviour
     {
         gameSpeed = initialGameSpeed;
         startPosx = transform.position.x;
-        moveLeft = false;
+        //moveLeft = false;
     }
 
     // Update is called once per frame
