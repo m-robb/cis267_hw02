@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -11,6 +12,7 @@ public class SkeletonMovement : MonoBehaviour
     public float movementSpeed;
     public float movementDistance;
     private Animator animator;
+    //private Vector2 curPos;
     private bool moveDown;
     private bool canMove;
 
@@ -62,13 +64,36 @@ public class SkeletonMovement : MonoBehaviour
 
     }
 
+    private void randomMovement()
+    {
+
+    }
+
+    private void stopMoving()
+    {
+        //stop moving
+        rb.velocity = Vector2.zero;
+
+
+    }
+
 
     
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            //move toward player and attack
+            if (Vector3.Distance(collision.transform.position, transform.position) >= 1.25)
+            {
+                Vector2 desiredDirection = collision.transform.position - transform.position;
+                rb.velocity = desiredDirection * movementSpeed;
+            }
+
+            else
+            {
+                canMove = false;
+                rb.velocity = Vector2.zero;
+            }
         }
     }
 
@@ -86,10 +111,10 @@ public class SkeletonMovement : MonoBehaviour
 
     IEnumerator moveTimer()
     {
-        canMove = false;
-        animator.SetBool("isWalking", false);
+        //canMove = false;
+        //animator.SetBool("isWalking", false);
         yield return new WaitForSeconds(5);
-        canMove = true;
-        walkSkeleton();
+        //canMove = true;
+        //walkSkeleton();
     }
 }
