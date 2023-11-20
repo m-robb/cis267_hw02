@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBossMovement : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class PlayerBossMovement : MonoBehaviour
 
     private void movementHorizontal()
     {
-        inputHorizontal = Input.GetAxis("Horizontal");
+        inputHorizontal = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(movementSpeed * inputHorizontal, rb.velocity.y);
     }
 
@@ -46,6 +47,16 @@ public class PlayerBossMovement : MonoBehaviour
         if(collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = true;
+        }
+        else if (collision.gameObject.CompareTag("HubEntrance"))
+        {
+            //Go back to hub
+            SceneManager.LoadScene("Hub");
+            //All this does right now is load the scene. It doesn't carry player over or save any information to a static class yet
+        }
+        else if (collision.gameObject.CompareTag("Boss02Ground"))
+        {
+            //Player fell off the platforms in Boss02 (Kill player?)
         }
     }
 

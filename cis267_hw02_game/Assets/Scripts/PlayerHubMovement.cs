@@ -46,4 +46,39 @@ public class PlayerHubMovement : MonoBehaviour
         //Update player's position
         playerRigidBody.velocity = new Vector2(movementSpeed * inputHorizontal, movementSpeed * inputVertical);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Boss01Entrance"))
+        {
+            //Go to boss02
+            SceneManager.LoadScene("Boss01");
+            //All this does right now is load the scene. It doesn't carry player over or save any information to a static class yet
+        }
+        else if (collision.gameObject.CompareTag("Boss02Entrance"))
+        {
+            //Go to boss02
+            SceneManager.LoadScene("Boss02");
+            //All this does right now is load the scene. It doesn't carry player over or save any information to a static class yet
+        }
+        else if (collision.gameObject.CompareTag("Boss03Entrance"))
+        {
+            //Go to boss02
+            SceneManager.LoadScene("Boss03");
+            //All this does right now is load the scene. It doesn't carry player over or save any information to a static class yet
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Apple"))
+        {
+            Destroy(collision.gameObject);
+            //GIVE PLAYER APPLE
+        }
+        //else if()
+        //{
+        
+        //}
+    }
 }
