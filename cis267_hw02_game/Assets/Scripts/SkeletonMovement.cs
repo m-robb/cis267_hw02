@@ -1,19 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class SkeletonMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 position;
+    private float startPositionY;
     public float movementSpeed;
-    private float movementDistance;
+    public float movementDistance;
+    private Animator animator;
+    private bool moveDown;
+    private bool canMove;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        position = transform.position;
+        startPositionY = transform.position.y;
+        animator = GetComponent<Animator>();
+        moveDown = true;
+        canMove = true;
     }
 
     
@@ -24,14 +32,64 @@ public class SkeletonMovement : MonoBehaviour
 
     private void walkSkeleton()
     {
-        //wander around
+        if (canMove)
+        {
+            if (!moveDown)
+            {
+                rb.transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
+                animator.SetBool("isWalking", true);
+                //Debug.Log("Moving Up");
+            }
+            else
+            {
+                rb.transform.Translate(Vector2.down * movementSpeed * Time.deltaTime);
+                animator.SetBool("isWalking", true);
+                //Debug.Log("Moving Down");
+            }
+
+            if (transform.position.y <= startPositionY - movementDistance)
+            {
+                moveDown = false;
+                StartCoroutine(moveTimer());
+            }
+
+            if (transform.position.y >= startPositionY)
+            {
+                moveDown = true;
+                StartCoroutine(moveTimer());
+            }
+        }
+
     }
 
+
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
             //move toward player and attack
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        canMove = false;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        canMove = true;
+    }
+
+
+
+    IEnumerator moveTimer()
+    {
+        canMove = false;
+        animator.SetBool("isWalking", false);
+        yield return new WaitForSeconds(5);
+        canMove = true;
+        walkSkeleton();
     }
 }
