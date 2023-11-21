@@ -1,3 +1,4 @@
+using static Utilities;
 using UnityEngine;
 
 
@@ -5,7 +6,7 @@ public class Sword : MonoBehaviour {
 	public GameObject blade;
 	public int swingDamage;
 	public int stabDamage;
-	public float bladeLength;
+	public float bladeLengthMultiplier;
 	/* The angle the sword rests when idle. Measured in degrees. */
 	public float idleAngle;
 	/* Total length of a swing. Measured in degrees. */
@@ -14,6 +15,8 @@ public class Sword : MonoBehaviour {
 	public float swingAngle;
 	/* Measured in 360.00f degrees / second. */
 	public float swingSpeed;
+	/* Radius of the circle that the swing should track. */
+	public float swingRadius;
 	/* Measured in uu/s. */
 	public float stabSpeed;
 	/* Measured in uu. */
@@ -31,12 +34,9 @@ public class Sword : MonoBehaviour {
 
 	void Start() {
 		interpolator = GetComponent<Interpolator>();
+		interpolator.radius = swingRadius;
 
-		/* The sprite is offset by 90.00f degrees. Undo that. */
 		/* 0.00f should point to the right (global). */
-		idleAngle -= 90.00f;
-		swingAngle -= 90.00f;
-		stabAngle -= 90.00f;
 		idleAngles = Vector3.forward * idleAngle;
 		swingAngles = Vector3.forward * swingAngle;
 		stabAngles = Vector3.forward * stabAngle;
@@ -45,8 +45,7 @@ public class Sword : MonoBehaviour {
 		isStabbing = false;
 
 		interpolator.angles = idleAngles;
-		blade.transform.localScale = new Vector3(
-				1.00f, bladeLength, 1.00f);
+		setLength(bladeLengthMultiplier);
 	}
 
 	void Update() {}
@@ -57,6 +56,8 @@ public class Sword : MonoBehaviour {
 					>= swingArc) {
 				/* End the swing. */
 				interpolator.velocityAngular = Vector3.zero;
+				interpolator.velocity = Vector3.zero;
+				transform.localPosition = Vector3.zero;
 				interpolator.angles = idleAngles;
 
 				isSwinging = false;
@@ -84,7 +85,14 @@ public class Sword : MonoBehaviour {
 
 		isSwinging = true;
 
+		transform.localPosition = new Vector3(
+			swingRadius * Mathf.Cos(swingAngle * dtrc),
+			swingRadius * Mathf.Sin(swingAngle * dtrc),
+			transform.localPosition.z
+		);
 		interpolator.angles = swingAngles;
+		interpolator.velocity = new Vector3((2 * Mathf.PI * swingRadius)
+				/ -swingSpeed, 0.00f, 0.00f);
 		interpolator.velocityAngular = new Vector3(0.00f, 0.00f,
 				swingSpeed * 360.00f);
 	}
@@ -99,6 +107,14 @@ public class Sword : MonoBehaviour {
 		isStabbing = true;
 
 		interpolator.angles = stabAngles;
-		interpolator.velocity = new Vector3(stabSpeed, 0.00f, 0.00f);
+		interpolator.velocity = Vector3.right * stabSpeed;
+	}
+
+	/*
+	 * Changes the sword blade's length.
+	 */
+	public void setLength(float multiplier) {
+		blade.transform.localScale = v3Set(blade.transform.localScale,
+				0, multiplier);
 	}
 }

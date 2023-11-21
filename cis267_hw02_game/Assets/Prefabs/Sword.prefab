@@ -231,14 +231,14 @@ MonoBehaviour:
   blade: {fileID: 4867771776963523838}
   swingDamage: 0
   stabDamage: 0
-  bladeLength: 1
+  bladeLengthMultiplier: 0
   idleAngle: 1
   swingArc: 90
   swingAngle: 90
   swingSpeed: 0.5
   stabSpeed: 0.5
   stabDistance: 0.5
-  stabAngle: -90
+  stabAngle: 0
 --- !u!114 &1977276968907013049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 4867771776963523838}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.281, z: 0}
+  m_LocalPosition: {x: 0.2655, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -330,11 +330,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.09375, y: 0}
-      - {x: 0.09375, y: 0.40625}
-      - {x: 0, y: 0.59375}
-      - {x: -0.09375, y: 0.40625}
-      - {x: -0.09375, y: 0}
+    - - {x: 0, y: 0.09375}
+      - {x: 0.40625, y: 0.09375}
+      - {x: 0.59375, y: 0}
+      - {x: 0.40625, y: -0.09375}
+      - {x: 0, y: -0.09375}
   m_UseDelaunayMesh: 0
 --- !u!1 &7917811709639143482
 GameObject:
