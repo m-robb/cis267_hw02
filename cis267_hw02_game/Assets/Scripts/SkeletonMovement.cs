@@ -15,34 +15,45 @@ public class SkeletonMovement : MonoBehaviour
     //private Vector2 curPos;
     private bool moveDown;
     private bool canMove;
-        private Vector3 directionDesired;
-        private float lastChange;
-        public float waitTime;
+    private Vector3 directionDesired;
+    private float lastChange;
+    public float waitTime;
+
+    //Health/HealthBar Stuff
+    [SerializeField] EnemyHealthBars hb;
+    private float health;
+    public float maxHealth;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        //Health Bar Stuff
+        hb = GetComponentInChildren<EnemyHealthBars>();
+        health = maxHealth;
+        hb.updateHealthBar(health, maxHealth);
+
         rb = GetComponent<Rigidbody2D>();
         startPositionY = transform.position.y;
+
         animator = GetComponent<Animator>();
         moveDown = true;
         canMove = true;
-                lastChange = -waitTime;
+        lastChange = -waitTime;
     }
 
     
     void Update()
     {
-                rb.velocity = directionDesired * movementSpeed;
+        rb.velocity = directionDesired * movementSpeed;
     }
 
 	private void FixedUpdate() 
         {
-                if(Time.time >= lastChange + waitTime) 
-                {
-                        lastChange = Time.time; //time since the program launched
-                        randomMovement();
-                }
+            if(Time.time >= lastChange + waitTime) 
+            {
+                    lastChange = Time.time; //time since the program launched
+                    randomMovement();
+            }
 	}
 
 
@@ -78,11 +89,10 @@ public class SkeletonMovement : MonoBehaviour
 
     private void randomMovement()
     {
-                float directionX = Random.Range(-1f,1f);
-                float directionY = Random.Range(-1f, 1f);
-                directionDesired = new Vector3(directionX, directionY, 0).normalized;     //direction skeleton should go
-                Debug.Log(directionDesired);
-
+        float directionX = Random.Range(-1f,1f);
+        float directionY = Random.Range(-1f, 1f);
+        directionDesired = new Vector3(directionX, directionY, 0).normalized;     //direction skeleton should go
+        Debug.Log(directionDesired);
     }
 
     private void stopMoving()
@@ -116,6 +126,22 @@ public class SkeletonMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         canMove = false;
+
+        //Example
+        //if(collision.gameObject.CompareTag("Dagger")) //Dagger for example
+        //{
+            //Example health deduction
+            //health = health - collision.gameObject.getDaggerDamage();
+            //Update health bar
+            //hb.updateHealthBar(health, maxHealth);
+        //}
+
+        //Testing health bar - WORKS
+        //if (collision.gameObject.CompareTag("Player"))
+        //{
+        //    health = health - 1;
+        //    hb.updateHealthBar(health, maxHealth);
+        //}
     }
 
     private void OnCollisionExit2D(Collision2D collision)

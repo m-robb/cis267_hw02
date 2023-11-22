@@ -19,6 +19,11 @@ public class PlayerHubMovement : MonoBehaviour
     private float inputHorizontal;
     private float inputVertical;
 
+    //Health/HealthBar Stuff
+    [SerializeField] PlayerHealthBar hb;
+    public float maxHealth;//100
+    private float health;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +35,11 @@ public class PlayerHubMovement : MonoBehaviour
         }
         Instance = this;
         GameObject.DontDestroyOnLoad(this.gameObject);
+
+        //Health Bar Stuff
+        hb = GetComponentInChildren<PlayerHealthBar>();
+        health = maxHealth;
+        hb.updateHealthBar(health, maxHealth);
     }
 
     // Update is called once per frame
@@ -49,7 +59,11 @@ public class PlayerHubMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Boss01Entrance"))
+        if (collision.gameObject.CompareTag("HubEnemy"))
+        {
+            takeDamage(20);
+        }
+        else if (collision.gameObject.CompareTag("Boss01Entrance"))
         {
             //Go to boss02
             SceneManager.LoadScene("Boss01");
@@ -76,9 +90,13 @@ public class PlayerHubMovement : MonoBehaviour
             Destroy(collision.gameObject);
             //GIVE PLAYER APPLE
         }
-        //else if()
-        //{
-        
-        //}
+
+
+    }
+
+    private void takeDamage(float damage)
+    {
+        health -= damage;
+        hb.updateHealthBar(health, maxHealth);
     }
 }
