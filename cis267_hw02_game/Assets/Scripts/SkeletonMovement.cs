@@ -48,12 +48,12 @@ public class SkeletonMovement : MonoBehaviour
     }
 
 	private void FixedUpdate() 
+    {
+        if(Time.time >= lastChange + waitTime) 
         {
-            if(Time.time >= lastChange + waitTime) 
-            {
-                    lastChange = Time.time; //time since the program launched
-                    randomMovement();
-            }
+            lastChange = Time.time; //time since the program launched
+            randomMovement();
+        }
 	}
 
 
@@ -92,18 +92,14 @@ public class SkeletonMovement : MonoBehaviour
         float directionX = Random.Range(-1f,1f);
         float directionY = Random.Range(-1f, 1f);
         directionDesired = new Vector3(directionX, directionY, 0).normalized;     //direction skeleton should go
-        Debug.Log(directionDesired);
+        //Debug.Log(directionDesired);
     }
 
     private void stopMoving()
     {
         //stop moving
         directionDesired = Vector3.zero;
-
-
     }
-
-
     
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -128,20 +124,14 @@ public class SkeletonMovement : MonoBehaviour
         canMove = false;
 
         //Example
-        //if(collision.gameObject.CompareTag("Dagger")) //Dagger for example
+        //if(collision.gameObject.CompareTag("Sword")) //Sword for example
         //{
-            //Example health deduction
-            //health = health - collision.gameObject.getDaggerDamage();
-            //Update health bar
-            //hb.updateHealthBar(health, maxHealth);
-        //}
-
-        //Testing health bar - WORKS
-        //if (collision.gameObject.CompareTag("Player"))
-        //{
-        //    health = health - 1;
+        //    //Example health deduction
+        //    health = health - collision.gameObject.getDaggerDamage();
+        //    //Update health bar
         //    hb.updateHealthBar(health, maxHealth);
         //}
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)

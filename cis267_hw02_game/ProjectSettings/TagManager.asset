@@ -14,6 +14,7 @@ TagManager:
   - Apple
   - HubEntrance
   - Boss02Ground
+  - thiefDagger
   layers:
   - Default
   - TransparentFX
