@@ -61,7 +61,7 @@ public class PlayerHubMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("HubEnemy"))
         {
-            takeDamage(20);
+            takeDamage(20); //Just a temporary number for now
         }
         else if (collision.gameObject.CompareTag("Boss01Entrance"))
         {

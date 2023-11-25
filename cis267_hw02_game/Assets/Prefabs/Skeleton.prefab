@@ -357,7 +357,7 @@ MonoBehaviour:
   movementDistance: 10
   waitTime: 5
   hb: {fileID: 1900458865836321330}
-  maxHealth: 10
+  maxHealth: 50
 --- !u!1001 &3531815121049222041
 PrefabInstance:
   m_ObjectHideFlags: 0
