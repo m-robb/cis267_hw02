@@ -178,11 +178,11 @@ GameObject:
   m_Component:
   - component: {fileID: 957303912169309455}
   - component: {fileID: 1922930959821399336}
-  - component: {fileID: 2005481844767762048}
-  - component: {fileID: 1977276968907013049}
+  - component: {fileID: 1194186179509781633}
+  - component: {fileID: 3411658228509984204}
   m_Layer: 0
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: WEAPON
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,7 +216,7 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &2005481844767762048
+--- !u!114 &1194186179509781633
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,21 +225,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 4210864901907727509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1cb1b6345f4b68768159d8bf304ce7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a176630da31c9103a1b660d7ef7e797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blade: {fileID: 4867771776963523838}
-  swingDamage: 0
-  stabDamage: 0
-  bladeLengthMultiplier: 0
-  idleAngle: 1
-  swingArc: 90
+  bladeLengthMultiplier: 2
+  idleAngle: 15
+  idleOffset: {x: 1, y: 0, z: 0}
+  swingArc: -180
   swingAngle: 90
-  swingSpeed: 0.5
-  stabSpeed: 0.5
-  stabDistance: 0.5
-  stabAngle: 0
---- !u!114 &1977276968907013049
+  swingSpeed: 90
+  swingRadius: 1
+  stabSpeed: 1
+  stabStart: {x: 1, y: 0, z: 0}
+  stabEnd: {x: 2, y: 0, z: 0}
+--- !u!114 &3411658228509984204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,9 +248,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4210864901907727509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 681317c01daa0b650848ea81493a3158, type: 3}
+  m_Script: {fileID: 11500000, guid: 22b7390f5a47c016fb6a7ef2cb0eb7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageFlat: 1
+  damageVelocityMultiplier: 2
+  armed: 0
 --- !u!1 &4867771776963523838
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,11 @@ public static class Utilities {
 	 */
 	public const string AXIS_X = "Horizontal";
 	public const string AXIS_Y = "Vertical";
-	/* public const string AXIS_Z = ""; */
+
+	/* TAGS */
+	public const string TAG_PLAYER = "PLAYER";
+	public const string TAG_ENEMY = "ENEMY";
+	public const string TAG_WEAPON = "WEAPON";
 
 
 	/*
@@ -58,26 +62,31 @@ public static class Utilities {
 	}
 
 
+
+	/*
+	 * Converts an entire vector from degrees (where 0.00f points to
+	 * 		the right) to something Unity understands.
+	 */
+	public static Vector3 convertAnglesVector3(Vector3 angles) {
+		return new Vector3(
+			convertAngles(angles.x),
+			convertAngles(angles.y),
+			convertAngles(angles.z)
+		);
+	}
+
+
 	/*
 	 *********
 	 * FLOAT *
 	 *********
 	 */
 
-	public const float rtdc = 180.00f / Mathf.PI;
-	public const float dtrc = Mathf.PI / 180.00f;
-
 	/*
-	 * Convert radians to degrees.
+	 * Converts from degrees (where 0.00f points to the right) to something
+	 * 		Unity understands.
 	 */
-	public static float rtd(float radians) {
-		return radians * rtdc;
-	}
-
-	/*
-	 * Convert degrees to radians.
-	 */
-	public static float dtr(float degrees) {
-		return degrees * dtrc;
+	public static float convertAngles(float degrees) {
+		return (degrees % 360.00f) - 180.00f;
 	}
 }

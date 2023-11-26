@@ -15,6 +15,9 @@ TagManager:
   - HubEntrance
   - Boss02Ground
   - thiefDagger
+  - PLAYER
+  - ENEMY
+  - WEAPON
   layers:
   - Default
   - TransparentFX
