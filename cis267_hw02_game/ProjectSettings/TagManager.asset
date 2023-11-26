@@ -18,6 +18,7 @@ TagManager:
   - PLAYER
   - ENEMY
   - WEAPON
+  - SkeletonBoundary
   layers:
   - Default
   - TransparentFX

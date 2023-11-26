@@ -1,23 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UIElements;
 
 public class SkeletonMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float startPositionY;
-    public float movementSpeed;
-    public float movementDistance;
     private Animator animator;
-    //private Vector2 curPos;
-    private bool moveDown;
-    private bool canMove;
     private Vector3 directionDesired;
+
+    private bool canMove;
+    private bool attack;
+
     private float lastChange;
     public float waitTime;
+    public float movementSpeed;
+    public float movementDistance;
+    private float directionX;
+    private float directionY;
+
+    private static readonly int Vertical = Animator.StringToHash("Vertical");
+    private static readonly int Horizontal = Animator.StringToHash("Horizontal");
 
     //Health/HealthBar Stuff
     [SerializeField] EnemyHealthBars hb;
@@ -33,10 +40,8 @@ public class SkeletonMovement : MonoBehaviour
         hb.updateHealthBar(health, maxHealth);
 
         rb = GetComponent<Rigidbody2D>();
-        startPositionY = transform.position.y;
 
         animator = GetComponent<Animator>();
-        moveDown = true;
         canMove = true;
         lastChange = -waitTime;
     }
@@ -44,53 +49,34 @@ public class SkeletonMovement : MonoBehaviour
     
     void Update()
     {
-        rb.velocity = directionDesired * movementSpeed;
+        if(canMove)
+        {
+            rb.velocity = directionDesired * movementSpeed;
+        }
+        else
+        {
+            stopMoving();
+        }
+        animate();
     }
 
 	private void FixedUpdate() 
     {
-        if(Time.time >= lastChange + waitTime) 
+        if(canMove)
         {
-            lastChange = Time.time; //time since the program launched
-            randomMovement();
+            if (Time.time >= lastChange + waitTime)
+            {
+                lastChange = Time.time; //time since the program launched
+                randomMovement();
+            }
         }
+
 	}
-
-
-	private void walkSkeleton()
-    {
-        if (canMove)
-        {
-            if (!moveDown)
-            {
-                rb.transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
-                animator.SetBool("isWalking", true);
-                //Debug.Log("Moving Up");
-            }
-            else
-            {
-                rb.transform.Translate(Vector2.down * movementSpeed * Time.deltaTime);
-                animator.SetBool("isWalking", true);
-                //Debug.Log("Moving Down");
-            }
-
-            if (transform.position.y <= startPositionY - movementDistance)
-            {
-                moveDown = false;
-            }
-
-            if (transform.position.y >= startPositionY)
-            {
-                moveDown = true;
-            }
-        }
-
-    }
 
     private void randomMovement()
     {
-        float directionX = Random.Range(-1f,1f);
-        float directionY = Random.Range(-1f, 1f);
+        directionX = Random.Range(-1f,1f);
+        directionY = Random.Range(-1f, 1f);
         directionDesired = new Vector3(directionX, directionY, 0).normalized;     //direction skeleton should go
         //Debug.Log(directionDesired);
     }
@@ -98,11 +84,36 @@ public class SkeletonMovement : MonoBehaviour
     private void stopMoving()
     {
         //stop moving
+        canMove = false;
         directionDesired = Vector3.zero;
+    }
+
+    private void animate()
+    {
+        if(directionX != 0 && directionY != 0)
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetFloat(Horizontal, directionX);
+            animator.SetFloat(Vertical, directionY);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        if(attack)
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("attack", true);
+        }
+
+        //Skeleton Direction
+
     }
     
     private void OnTriggerStay2D(Collider2D collision)
     {
+        float wait = 2f;
+
         if(collision.gameObject.CompareTag("Player"))
         {
             if (Vector3.Distance(collision.transform.position, transform.position) >= 1.25)
@@ -115,13 +126,26 @@ public class SkeletonMovement : MonoBehaviour
             {
                 canMove = false;
                 rb.velocity = Vector2.zero;
+                attack = true;
+
+                if(wait >= 0)
+                {
+                    attack = false;
+                    wait -= Time.deltaTime;
+                }
+                else
+                {
+                    wait = 2f;
+                    attack = true;
+                }
+
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        canMove = false;
+        //canMove = false;
 
         //Example
         //if(collision.gameObject.CompareTag("Sword")) //Sword for example
@@ -137,5 +161,14 @@ public class SkeletonMovement : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         canMove = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("SkeletonBoundary"))
+        {
+            directionDesired = (collision.transform.position - transform.position).normalized;
+            rb.velocity = directionDesired * movementSpeed;
+        }
     }
 }

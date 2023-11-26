@@ -355,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1
   movementDistance: 10
-  waitTime: 5
+  waitTime: 10
   hb: {fileID: 1900458865836321330}
   maxHealth: 50
 --- !u!1001 &3531815121049222041
