@@ -1388,6 +1388,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7829492449056213354}
+    - targetCorrespondingSourceObject: {fileID: 7112003683573990485, guid: 1df48aa8cc8beba4b9909bf1168e75da,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8151034262129335601}
   m_SourcePrefab: {fileID: -2925132859872623633, guid: 1df48aa8cc8beba4b9909bf1168e75da,
     type: 3}
 --- !u!4 &3927578726448059672 stripped
@@ -1598,6 +1602,18 @@ MonoBehaviour:
   movementSpeed: 2
   hb: {fileID: 7143250726299276814}
   maxHealth: 200
+--- !u!210 &-8151034262129335601
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592724057502700422}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_SortAtRoot: 0
 --- !u!4 &7756708237709688618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2285168970816788231, guid: 1df48aa8cc8beba4b9909bf1168e75da,

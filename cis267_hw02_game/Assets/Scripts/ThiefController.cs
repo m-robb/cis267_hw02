@@ -19,7 +19,7 @@ public class ThiefController : MonoBehaviour
     private bool facingRight = false;
 
     private float moveTime = 2f;
-    private float stopTime = 2f;
+    private float stopTime = 20f; //Start value
 
     private Transform target;
     private Vector2 moveDirection;

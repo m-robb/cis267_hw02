@@ -17,12 +17,11 @@ public class OrcController : MonoBehaviour
     private bool facingRight = false;
 
     private float moveTime = 2f;
-    private float stopTime = 6f;
+    private float stopTime = 15f; //Start value
 
     private Transform target;
     private Vector2 moveDirection;
     private bool chasePlayer = false;
-    private bool doubledSpeed = false;
 
     void Start()
     {
@@ -82,7 +81,7 @@ public class OrcController : MonoBehaviour
                 else
                 {
                     //Reset both timers
-                    stopTime = 6f;
+                    stopTime = 15f;
                     moveTime = 2f;
                     //Decide movementHorizontal&Vertical again
                     movementHorizontal = Random.Range(-1f, 1f);
@@ -129,8 +128,8 @@ public class OrcController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Player is in my trigger radius, I must be moving. Set the isRunning parameter to true
-            animator.SetBool("isRunning", true);
+            //Player is in my trigger radius, I must be moving. Set the isWalking parameter to true
+            animator.SetBool("isWalking", true);
             //Set target
             target = collision.gameObject.transform;
             //Now chase the player
@@ -150,13 +149,6 @@ public class OrcController : MonoBehaviour
                 movementHorizontal = -1f;
                 movementVertical = 0.01f; //Any number but 0 (The number doesn't actually matter)
             }
-
-            //Speed Stuff(The cow will run when it sees the player, and walk otherwise, so I'm doubling movement speed here)
-            if (!doubledSpeed)
-            {
-                movementSpeed = movementSpeed * 2;
-                doubledSpeed = true;
-            }
         }
     }
 
@@ -172,12 +164,11 @@ public class OrcController : MonoBehaviour
             rb.velocity = new Vector2(movementSpeed * movementHorizontal, movementSpeed * movementVertical);
 
             //Stop moving animation wise
-            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", false);
 
-            ////Speed stuff
+
+            //Speed stuff
             movementSpeed = movementSpeed / 2;
-            doubledSpeed = false;
         }
-
     }
 }
