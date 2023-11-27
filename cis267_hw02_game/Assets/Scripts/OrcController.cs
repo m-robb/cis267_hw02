@@ -10,7 +10,10 @@ public class OrcController : MonoBehaviour
 
     [SerializeField] EnemyHealthBars hb;
     public float maxHealth;
-    private float health;
+    public float health;
+
+    public float attackDamage;
+    public float physicalDamage;
 
     private float movementHorizontal;
     private float movementVertical;
@@ -122,6 +125,9 @@ public class OrcController : MonoBehaviour
         gameObject.transform.localScale = currentScale;
         //Flip boolean also
         facingRight = !facingRight;
+
+        //Reflip Healthbar
+        hb.flipHealthBar();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -170,5 +176,36 @@ public class OrcController : MonoBehaviour
             //Speed stuff
             movementSpeed = movementSpeed / 2;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) //Just "Player" for now, but will change to the player's weapon
+        {
+            takeDamage(50);
+        }
+    }
+
+    private void takeDamage(float damage)
+    {
+        health -= damage;
+        hb.updateHealthBar(health, maxHealth);
+
+        if (health <= 0)
+        {
+            //Drop axe
+            //Die
+            Destroy(this.gameObject);
+        }
+    }
+
+    public float getAttackDamage()
+    {
+        return attackDamage;
+    }
+
+    public float getPhysicalDamage()
+    {
+        return physicalDamage;
     }
 }

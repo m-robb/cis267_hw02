@@ -12,7 +12,9 @@ public class ThiefController : MonoBehaviour
 
     [SerializeField] EnemyHealthBars hb;
     public float maxHealth;
-    private float health;
+    public float health;
+
+    public float attackDamage;
 
     private float movementHorizontal;
     private float movementVertical;
@@ -124,6 +126,9 @@ public class ThiefController : MonoBehaviour
         gameObject.transform.localScale = currentScale;
         //Flip boolean also
         facingRight = !facingRight;
+
+        //Reflip Healthbar
+        hb.flipHealthBar();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -139,14 +144,14 @@ public class ThiefController : MonoBehaviour
 
             if (rb.position.x < target.GetComponent<Rigidbody2D>().position.x)
             {
-                Debug.Log("Player is to my right");
+                //Debug.Log("Player is to my right");
                 //Start moving right ->
                 movementHorizontal = 1f;
                 movementVertical = 0.01f; //Any number but 0 (The number doesn't actually matter)
             }
             else  //If I'm to the right of the player:
             {
-                Debug.Log("Player is to my left");
+                //Debug.Log("Player is to my left");
                 //Start moving left <-
                 movementHorizontal = -1f;
                 movementVertical = 0.01f; //Any number but 0 (The number doesn't actually matter)
@@ -167,5 +172,31 @@ public class ThiefController : MonoBehaviour
         }
         //Stop moving animation wise
         animator.SetBool("isMoving", false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) //Just "Player" for now, but will change to the player's weapon
+        {
+            takeDamage(20);
+        }
+    }
+
+    private void takeDamage(float damage)
+    {
+        health -= damage;
+        hb.updateHealthBar(health, maxHealth);
+
+        if (health <= 0)
+        {
+            //Drop dagger(s)
+            //Die
+            Destroy(this.gameObject);
+        }
+    }
+
+    public float getAttackDamage()
+    {
+        return attackDamage;
     }
 }

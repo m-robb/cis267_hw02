@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CowEnemyController : MonoBehaviour
@@ -10,7 +11,10 @@ public class CowEnemyController : MonoBehaviour
 
     [SerializeField] EnemyHealthBars hb;
     public float maxHealth;
-    private float health;
+    public float health;
+
+    public float attackDamage;
+    public float physicalDamage;
 
     private float movementHorizontal;
     private float movementVertical;
@@ -123,6 +127,9 @@ public class CowEnemyController : MonoBehaviour
         gameObject.transform.localScale = currentScale;
         //Flip boolean also
         facingRight = !facingRight;
+
+        //Reflip Healthbar
+        hb.flipHealthBar();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -174,9 +181,40 @@ public class CowEnemyController : MonoBehaviour
             //Stop moving animation wise
             animator.SetBool("isRunning", false);
 
-            ////Speed stuff
+            //Speed stuff
             movementSpeed = movementSpeed / 2;
             doubledSpeed = false;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) //Just "Player" for now, but will change to the player's weapon
+        {
+            takeDamage(50);
+        }
+    }
+
+    private void takeDamage(float damage)
+    {
+        health -= damage;
+        hb.updateHealthBar(health, maxHealth);
+
+        if (health <= 0)
+        {
+            //Drop club/dagger
+            //Die
+            Destroy(this.gameObject);
+        }
+    }
+
+    public float getAttackDamage()
+    {
+        return attackDamage;
+    }
+
+    public float getPhysicalDamage()
+    {
+        return physicalDamage;
     }
 }

@@ -4,12 +4,12 @@ using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerHubMovement : MonoBehaviour
+public class PlayerHubController : MonoBehaviour
 {
     private Rigidbody2D playerRigidBody;
     public GameObject player;
     public Camera cam;
-    public static PlayerHubMovement Instance;
+    public static PlayerHubController Instance;
 
     public GameObject gameManager;
     private GameManager gm;
@@ -59,9 +59,29 @@ public class PlayerHubMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("HubEnemy"))
+        if (collision.gameObject.CompareTag("ThiefDagger")) //Thief hits me with dagger
         {
-            takeDamage(20); //Just a temporary number for now
+            takeDamage(collision.gameObject.GetComponentInParent<ThiefController>().getAttackDamage()); //Take damage
+        }
+        else if (collision.gameObject.CompareTag("EnemyCow")) //Player runs into cow
+        {
+            takeDamage(collision.gameObject.GetComponent<CowEnemyController>().getPhysicalDamage());
+        }
+        else if (collision.gameObject.CompareTag("CowClub")) //Cow hits me with club
+        {
+            takeDamage(collision.gameObject.GetComponentInParent<CowEnemyController>().getAttackDamage());
+        }
+        else if (collision.gameObject.CompareTag("CowDagger")) //Cow hits me with dagger
+        {
+            takeDamage(collision.gameObject.GetComponentInParent<CowEnemyController>().getAttackDamage());
+        }
+        else if (collision.gameObject.CompareTag("Orc")) //Player runs into Orc
+        {
+            takeDamage(collision.gameObject.GetComponent<OrcController>().getPhysicalDamage());
+        }
+        else if (collision.gameObject.CompareTag("OrcAxe")) //Orc hits player with axe
+        {
+            takeDamage(collision.gameObject.GetComponentInParent<OrcController>().getAttackDamage());
         }
         else if (collision.gameObject.CompareTag("Boss01Entrance"))
         {
@@ -90,13 +110,19 @@ public class PlayerHubMovement : MonoBehaviour
             Destroy(collision.gameObject);
             //GIVE PLAYER APPLE
         }
-
-
     }
 
     private void takeDamage(float damage)
     {
         health -= damage;
         hb.updateHealthBar(health, maxHealth);
+
+        if (health <= 0)
+        {
+            //Die
+            Destroy(this.gameObject);
+
+            //YOU LOSE - GAME OVER MENU
+        }
     }
 }

@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010529582648}
   - component: {fileID: 212000010745832340}
+  - component: {fileID: 3104193791273895339}
   m_Layer: 0
   m_Name: dagger
-  m_TagString: thiefDagger
+  m_TagString: ThiefDagger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +85,66 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &3104193791273895339
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010116252232}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.518825, y: 0.13818657}
+    oldSize: {x: 0.21, y: 0.59}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.015169762, y: 0.51246214}
+      - {x: -0.054963283, y: 0.42352778}
+      - {x: -0.05746995, y: 0.11341799}
+      - {x: -0.10769917, y: 0.10945785}
+      - {x: -0.10810743, y: 0.07544332}
+      - {x: -0.046813376, y: 0.06570278}
+      - {x: -0.03303489, y: -0.0036556982}
+      - {x: -0.015469059, y: -0.08023841}
+      - {x: 0.030929005, y: -0.079459615}
+      - {x: 0.034989454, y: 0.06439826}
+      - {x: 0.10104675, y: 0.06846993}
+      - {x: 0.1033593, y: 0.111780636}
+      - {x: 0.05036455, y: 0.12289298}
+      - {x: 0.0540832, y: 0.2642151}
+      - {x: 0.049430963, y: 0.5058657}
+  m_UseDelaunayMesh: 0
 --- !u!1 &1000010283708308
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +217,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300050, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -347,9 +408,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010939616090}
   - component: {fileID: 212000012877011298}
+  - component: {fileID: 4927343074916578423}
   m_Layer: 0
   m_Name: dagger
-  m_TagString: thiefDagger
+  m_TagString: ThiefDagger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,7 +471,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300266, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -421,6 +483,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &4927343074916578423
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012439855606}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.518825, y: 0.13818657}
+    oldSize: {x: 0.21, y: 0.59}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.005846218, y: 0.49699003}
+      - {x: -0.03169776, y: 0.4545596}
+      - {x: -0.055244714, y: 0.42249605}
+      - {x: -0.05956189, y: 0.24462059}
+      - {x: -0.064765364, y: 0.11820815}
+      - {x: -0.10928815, y: 0.10747813}
+      - {x: -0.10364352, y: 0.06898516}
+      - {x: -0.045759868, y: 0.061497305}
+      - {x: -0.036350332, y: 0.02958583}
+      - {x: -0.01375008, y: -0.07608398}
+      - {x: 0.030467546, y: -0.07936517}
+      - {x: 0.039336387, y: 0.06368427}
+      - {x: 0.10104675, y: 0.06846993}
+      - {x: 0.103805654, y: 0.11003936}
+      - {x: 0.047711637, y: 0.114206366}
+      - {x: 0.05267545, y: 0.25385988}
+      - {x: 0.051766776, y: 0.514636}
+  m_UseDelaunayMesh: 0
 --- !u!1 &1000012526242056
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,14 +729,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013306724104}
   - component: {fileID: 95000010572177686}
-  - component: {fileID: 1049309270449934887}
+  - component: {fileID: 7864035402263626756}
   - component: {fileID: 8217525164813207239}
   - component: {fileID: 2073819036393581109}
   - component: {fileID: 1006665882057245488}
   - component: {fileID: 7474115890851683104}
   m_Layer: 0
   m_Name: Thief
-  m_TagString: Untagged
+  m_TagString: Thief
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -655,8 +779,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &1049309270449934887
-BoxCollider2D:
+--- !u!70 &7864035402263626756
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -687,19 +811,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0023884624, y: 0.87179154}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.47931322, y: 1.7499806}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0.8812611}
+  m_Size: {x: 0.5, y: 1.7491703}
+  m_Direction: 0
 --- !u!50 &8217525164813207239
 Rigidbody2D:
   serializedVersion: 4
@@ -777,6 +891,7 @@ MonoBehaviour:
   movementSpeed: 2
   hb: {fileID: 2998800365437143449}
   maxHealth: 50
+  attackDamage: 15
 --- !u!210 &7474115890851683104
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -861,7 +976,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300050, guid: 15b2d2faaecad4bfb9edc6585d94f509, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
