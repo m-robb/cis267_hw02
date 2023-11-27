@@ -79,9 +79,9 @@ public class Bow : MonoBehaviour {
 
 			if (completion >= 1.00f) {
 				/* Release the projectile. */
+				arrowNew.GetComponent<Projectile>().launchAngle(
+						launchSpeed, windup.z);
 				arrowNew.transform.parent = null;
-				arrowNew.GetComponent<Projectile>().launch(
-						launchSpeed, Vector3.right);
 
 				idle();
 

@@ -87,6 +87,6 @@ public static class Utilities {
 	 * 		Unity understands.
 	 */
 	public static float convertAngles(float degrees) {
-		return (degrees % 360.00f) - 180.00f;
+		return ((degrees + 180.00f) % 360.00f) - 180.00f;
 	}
 }

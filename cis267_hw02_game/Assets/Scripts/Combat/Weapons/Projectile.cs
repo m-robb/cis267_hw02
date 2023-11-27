@@ -36,16 +36,10 @@ public class Projectile : Weapon {
 	 * Launches the projectile in the specified direction.
 	 * Normalizes the direction before usage.
 	 */
-	public void launch(float speed, Vector3 direction,
-			bool rotateToVelocity = true) {
+	public void launch(float speed, Vector3 direction) {
 		Thread armingThread;
 
 		rb.velocity = speed * direction.normalized;
-
-		if (rotateToVelocity) {
-			transform.localEulerAngles = rb.velocity.normalized
-					* 360.00f;
-		}
 
 		/* Setup timer to arm the projectile. */
 		armingThread = new Thread(armingTimer);
@@ -57,15 +51,13 @@ public class Projectile : Weapon {
 	 * Angle is measured in degrees. 0.00f degrees points to the
 	 * 		positive x-axis.
 	 */
-	public void launchAngle(float speed, float angle,
-			bool rotateToVelocity = true) {
+	public void launchAngle(float speed, float angle) {
 		float angleRadians;
 
 		angleRadians = Mathf.Deg2Rad * convertAngles(angle);
 
 		launch(speed, new Vector3(Mathf.Cos(angleRadians),
-				Mathf.Sin(angleRadians), 0.00f),
-				rotateToVelocity);
+				Mathf.Sin(angleRadians), 0.00f));
 	}
 
 	/*
