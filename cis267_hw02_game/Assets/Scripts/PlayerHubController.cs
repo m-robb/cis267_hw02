@@ -82,6 +82,10 @@ public class PlayerHubController : MonoBehaviour
         {
             takeDamage(collision.gameObject.GetComponentInParent<OrcController>().getAttackDamage());
         }
+        else if (collision.gameObject.CompareTag("Skeleton")) //Player gets hit by/runs into skeleton
+        {
+            takeDamage(collision.gameObject.GetComponent<SkeletonMovement>().getAttackDamage());
+        }
         else if (collision.gameObject.CompareTag("Boss01Entrance"))
         {
             //Go to boss02

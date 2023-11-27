@@ -26,6 +26,7 @@ public class SkeletonMovement : MonoBehaviour
     private float directionY;
     public float nextAttackTime;
     public float attackRate;
+    public float attackDamage;
 
     private static readonly int Vertical = Animator.StringToHash("Vertical");
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
@@ -52,7 +53,6 @@ public class SkeletonMovement : MonoBehaviour
         attackRate = 1f;
         nextAttackTime = Time.time + attackRate;
     }
-
     
     void Update()
     {
@@ -77,7 +77,6 @@ public class SkeletonMovement : MonoBehaviour
                 randomMovement();
             }
         }
-
 	}
 
     private void randomMovement()
@@ -98,7 +97,6 @@ public class SkeletonMovement : MonoBehaviour
         animator.SetBool("isWalking", false);
     }
 
-    
     private void animate()
     {
         if(directionX != 0 && directionY != 0)
@@ -111,7 +109,6 @@ public class SkeletonMovement : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
-
     }
     
     private void OnTriggerStay2D(Collider2D collision)
@@ -154,14 +151,10 @@ public class SkeletonMovement : MonoBehaviour
     {
         //canMove = false;
 
-        //Example
-        //if(collision.gameObject.CompareTag("Sword")) //Sword for example
-        //{
-        //    //Example health deduction
-        //    health = health - collision.gameObject.getDaggerDamage();
-        //    //Update health bar
-        //    hb.updateHealthBar(health, maxHealth);
-        //}
+        if (collision.gameObject.CompareTag("Player")) //Just "Player" for now, but will change to the player's weapon
+        {
+            takeDamage(20);
+        }
 
     }
 
@@ -186,5 +179,23 @@ public class SkeletonMovement : MonoBehaviour
             canMove = true; 
             randomMovement();
         }
+    }
+
+    private void takeDamage(float damage)
+    {
+        health -= damage;
+        hb.updateHealthBar(health, maxHealth);
+
+        if (health <= 0)
+        {
+            //Drop dagger(s)
+            //Die
+            Destroy(this.gameObject);
+        }
+    }
+
+    public float getAttackDamage()
+    {
+        return attackDamage;
     }
 }
