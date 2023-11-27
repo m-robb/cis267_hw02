@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class SkeletonMovement : MonoBehaviour
@@ -12,9 +13,10 @@ public class SkeletonMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Vector3 directionDesired;
+    private Vector3 startingPos;
 
     private bool canMove;
-    private bool attack;
+    //private bool attack;
 
     private float lastChange;
     public float waitTime;
@@ -22,6 +24,8 @@ public class SkeletonMovement : MonoBehaviour
     public float movementDistance;
     private float directionX;
     private float directionY;
+    public float nextAttackTime;
+    public float attackRate;
 
     private static readonly int Vertical = Animator.StringToHash("Vertical");
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
@@ -42,8 +46,11 @@ public class SkeletonMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         animator = GetComponent<Animator>();
+        startingPos = transform.position;
         canMove = true;
         lastChange = -waitTime;
+        attackRate = 1f;
+        nextAttackTime = Time.time + attackRate;
     }
 
     
@@ -75,9 +82,11 @@ public class SkeletonMovement : MonoBehaviour
 
     private void randomMovement()
     {
+        Debug.Log("RandomMovement()");
         directionX = Random.Range(-1f,1f);
         directionY = Random.Range(-1f, 1f);
         directionDesired = new Vector3(directionX, directionY, 0).normalized;     //direction skeleton should go
+        animator.SetBool("isWalking", true);
         //Debug.Log(directionDesired);
     }
 
@@ -86,8 +95,10 @@ public class SkeletonMovement : MonoBehaviour
         //stop moving
         canMove = false;
         directionDesired = Vector3.zero;
+        animator.SetBool("isWalking", false);
     }
 
+    
     private void animate()
     {
         if(directionX != 0 && directionY != 0)
@@ -96,49 +107,45 @@ public class SkeletonMovement : MonoBehaviour
             animator.SetFloat(Horizontal, directionX);
             animator.SetFloat(Vertical, directionY);
         }
-        else
+        if(!canMove)
         {
             animator.SetBool("isWalking", false);
         }
-        if(attack)
-        {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("attack", true);
-        }
-
-        //Skeleton Direction
 
     }
     
     private void OnTriggerStay2D(Collider2D collision)
     {
-        float wait = 2f;
+        Vector3 facePlayer;
 
         if(collision.gameObject.CompareTag("Player"))
         {
-            if (Vector3.Distance(collision.transform.position, transform.position) >= 1.25)
+            if (Vector3.Distance(collision.transform.position, transform.position) >= 1.9)
             {
-				directionDesired = (collision.transform.position - transform.position).normalized;
+                directionDesired = (collision.transform.position - transform.position).normalized;
                 rb.velocity = directionDesired * movementSpeed;
+                animator.SetFloat(Horizontal, directionX);
+                animator.SetFloat(Vertical, -directionY);
             }
-
-            else
+            else if (Vector3.Distance(collision.transform.position, transform.position) <= 1.8)
             {
-                canMove = false;
-                rb.velocity = Vector2.zero;
-                attack = true;
+                stopMoving();
+                facePlayer = (collision.transform.position - transform.position).normalized;
+                animator.SetFloat(Horizontal, directionX);
+                animator.SetFloat(Vertical, -directionY);
 
-                if(wait >= 0)
+                if (Time.time > nextAttackTime)
                 {
-                    attack = false;
-                    wait -= Time.deltaTime;
+                    animator.SetTrigger("swingSword");
+                    Debug.Log("Entered Attack");
+                    //attack = true;
                 }
                 else
                 {
-                    wait = 2f;
-                    attack = true;
+                    //attack = false;
+                    nextAttackTime = Time.time + attackRate;
+                    animator.ResetTrigger("swingSword");
                 }
-
             }
         }
     }
@@ -167,8 +174,17 @@ public class SkeletonMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("SkeletonBoundary"))
         {
-            directionDesired = (collision.transform.position - transform.position).normalized;
+            directionDesired = (startingPos - transform.position).normalized;
             rb.velocity = directionDesired * movementSpeed;
+            animator.SetFloat(Horizontal, -directionX);
+            animator.SetFloat(Vertical, -directionY);
+        }
+
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Exit trigger");
+            canMove = true; 
+            randomMovement();
         }
     }
 }

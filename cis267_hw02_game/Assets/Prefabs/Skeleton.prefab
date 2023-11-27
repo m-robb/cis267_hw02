@@ -356,6 +356,8 @@ MonoBehaviour:
   waitTime: 10
   movementSpeed: 1
   movementDistance: 10
+  nextAttackTime: 2
+  attackRate: 1
   hb: {fileID: 1900458865836321330}
   maxHealth: 50
 --- !u!1001 &3531815121049222041
