@@ -172,8 +172,12 @@ MonoBehaviour:
   movementSpeed: 3
   hb: {fileID: 9107166875833749158}
   maxHealth: 400
+  health: 0
   attackDamage: 40
   physicalDamage: 5
+  axeToDrop: {fileID: 931368826084136491, guid: f5843547b90690340a8c4a1c15ffd501,
+    type: 3}
+  orcLocation: {fileID: 400000}
 --- !u!210 &-3881163638388201166
 SortingGroup:
   m_ObjectHideFlags: 0

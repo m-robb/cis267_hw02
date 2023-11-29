@@ -26,6 +26,9 @@ public class OrcController : MonoBehaviour
     private Vector2 moveDirection;
     private bool chasePlayer = false;
 
+    public GameObject axeToDrop;
+    public Transform orcLocation;
+
     void Start()
     {
         //Health Bar Stuff
@@ -194,6 +197,7 @@ public class OrcController : MonoBehaviour
         if (health <= 0)
         {
             //Drop axe
+            Instantiate(axeToDrop, orcLocation.position, axeToDrop.transform.rotation);
             //Die
             Destroy(this.gameObject);
         }

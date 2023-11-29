@@ -526,6 +526,8 @@ MonoBehaviour:
   backArmPosition: {fileID: 1681180107607418040}
   daggerToGivePlayer: {fileID: 4210864901907727509, guid: 98b5cd39ecb8c0242b6c6d06b3ae7e88,
     type: 3}
+  axeToGivePlayer: {fileID: 2868506297185403300, guid: 056a1e86b15f6d24699df59941b44d8c,
+    type: 3}
 --- !u!114 &1177380348370305308
 MonoBehaviour:
   m_ObjectHideFlags: 0

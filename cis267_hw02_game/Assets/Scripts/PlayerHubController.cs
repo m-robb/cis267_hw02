@@ -32,6 +32,7 @@ public class PlayerHubController : MonoBehaviour
     public Transform playerPosition;
     public Transform backArmPosition;
     public GameObject daggerToGivePlayer;
+    public GameObject axeToGivePlayer;
     private GameObject emptyObj;
 
     // Start is called before the first frame update
@@ -171,6 +172,19 @@ public class PlayerHubController : MonoBehaviour
             GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
             newDagger.transform.parent = emptyObj.gameObject.transform; //Make the empty object the parent of the new dagger
             emptyObj.transform.position = backArmPosition.transform.position; //Move the empty object holding the dagger to the arm
+
+            //Destroy the collectable
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("AxeCollectable"))
+        {
+            //GIVE PLAYER AXE
+            emptyObj = new GameObject("EmptyObjectForAxe"); //Make empty object for it
+            emptyObj.transform.parent = backArmPosition.gameObject.transform; //Make the player's back arm the parent
+            //Instantiate a newAxe
+            GameObject newAxe = Instantiate(axeToGivePlayer, playerPosition.position, axeToGivePlayer.transform.rotation);
+            newAxe.transform.parent = emptyObj.gameObject.transform; //Make the empty object the parent of the new axe
+            emptyObj.transform.position = backArmPosition.transform.position; //Move the empty object holding the axe to the arm
 
             //Destroy the collectable
             Destroy(collision.gameObject);
