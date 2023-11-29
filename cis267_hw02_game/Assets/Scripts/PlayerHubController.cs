@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +12,8 @@ public class PlayerHubController : MonoBehaviour
     public Camera cam;
     public static PlayerHubController Instance;
 
-    public GameObject gameManager;
     private GameManager gm;
+    private Combatant combatantScript;
 
     //Movement variables
     public float movementSpeed;
@@ -20,13 +22,20 @@ public class PlayerHubController : MonoBehaviour
 
     //Health/HealthBar Stuff
     [SerializeField] PlayerHealthBar hb;
-    public float maxHealth;//100
     private float health;
+    private float maxHealth;
+
+    //Giving players GameObjects (Swords, Apples, etc)
+    public Transform playerPosition;
+    public GameObject swordToGivePlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
+        gm = GetComponent<GameManager>();
+        combatantScript = GetComponent<Combatant>();
+
         if (Instance != null)
         {
             Destroy(this.gameObject);
@@ -37,7 +46,8 @@ public class PlayerHubController : MonoBehaviour
 
         //Health Bar Stuff
         hb = GetComponentInChildren<PlayerHealthBar>();
-        health = maxHealth;
+        health = combatantScript.healthMax();
+        maxHealth = combatantScript.healthMax();
         hb.updateHealthBar(health, maxHealth);
     }
 
@@ -110,22 +120,24 @@ public class PlayerHubController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Apple"))
         {
-            Destroy(collision.gameObject);
             //GIVE PLAYER APPLE
+
+
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("DaggerCollectable"))
+        {
+            //GIVE PLAYER DAGGER
+            Instantiate(swordToGivePlayer, playerPosition.position, swordToGivePlayer.transform.rotation);
+
+            Destroy(collision.gameObject);
         }
     }
 
     private void takeDamage(float damage)
     {
-        health -= damage;
+        combatantScript.takeDamage(damage);
+        health = combatantScript.curHealth();
         hb.updateHealthBar(health, maxHealth);
-
-        if (health <= 0)
-        {
-            //Die
-            Destroy(this.gameObject);
-
-            //YOU LOSE - GAME OVER MENU
-        }
     }
 }

@@ -891,7 +891,11 @@ MonoBehaviour:
   movementSpeed: 2
   hb: {fileID: 2998800365437143449}
   maxHealth: 50
+  health: 0
   attackDamage: 15
+  daggerToDrop: {fileID: 864512866565507906, guid: 1bbb88d0458749942bd41bb1a80fce43,
+    type: 3}
+  thiefLocation: {fileID: 4000013306724104}
 --- !u!210 &7474115890851683104
 SortingGroup:
   m_ObjectHideFlags: 0

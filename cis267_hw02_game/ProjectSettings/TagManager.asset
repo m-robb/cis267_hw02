@@ -25,6 +25,8 @@ TagManager:
   - Thief
   - Skeleton
   - ThiefDagger
+  - DaggerCollectable
+  - GoldSack
   layers:
   - Default
   - TransparentFX

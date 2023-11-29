@@ -3,7 +3,8 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Combatant : MonoBehaviour {
+public class Combatant : MonoBehaviour
+{
 	[Tooltip("The base health of this combatant. Other numbers may modify "
 			+ "it, so don't read from it directly. "
 			+ "If it drops to zero or below, the combatant dies.")]
@@ -14,11 +15,13 @@ public class Combatant : MonoBehaviour {
 	private int health;
 
 
-	void Start() {
+	void Start()
+	{
 		health = healthMax();
 	}
 
-	void OnTriggerEnter2D(Collider2D collision) {
+	void OnTriggerEnter2D(Collider2D collision)
+	{
 		Debug.Log(name + " detected something.");
 		string tag;
 
@@ -31,7 +34,7 @@ public class Combatant : MonoBehaviour {
 
 			weapon = collision.GetComponent<Weapon>();
 
-			damage(weapon.hit());
+			takeDamage(weapon.hit());
 
 			Debug.Log(name + "'s new health: " + health);
 		}
@@ -42,18 +45,26 @@ public class Combatant : MonoBehaviour {
 	/*
 	 * Returns the combatant's maximum health.
 	 */
-	public int healthMax() {
+	public int healthMax()
+	{
 		return healthBase; /* Add modifiers for max health here. */
+	}
+
+	public int curHealth()
+	{
+		return health;
 	}
 
 	/*
 	 * Applies damage to the combatant.
 	 * Negative numbers heal the combatant!
 	 */
-	public void damage(int n) {
-		health -= n;
+	public void takeDamage(int d)
+	{
+		health -= d;
 
-		if (health <= 0) {
+		if (health <= 0)
+		{
 			die();
 		}
 	}
@@ -63,14 +74,16 @@ public class Combatant : MonoBehaviour {
 	 * Negative numbers heal the combatant!
 	 * Truncates the float to an int (this is intended).
 	 */
-	public void damage(float x) {
-		damage((int)x);
+	public void takeDamage(float d)
+	{
+		takeDamage((int)d);
 	}
 
 	/*
 	 * Kills the combatant.
 	 */
-	private void die() {
+	private void die()
+	{
 		Debug.Log(gameObject.name + " was slain.");
 	}
 }

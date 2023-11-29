@@ -27,6 +27,9 @@ public class ThiefController : MonoBehaviour
     private Vector2 moveDirection;
     private bool chasePlayer = false;
 
+    public GameObject daggerToDrop;
+    public Transform thiefLocation;
+
     void Start()
     {
         //Health Bar Stuff
@@ -190,6 +193,8 @@ public class ThiefController : MonoBehaviour
         if (health <= 0)
         {
             //Drop dagger(s)
+            Instantiate(daggerToDrop, thiefLocation.position, daggerToDrop.transform.rotation);
+
             //Die
             Destroy(this.gameObject);
         }
