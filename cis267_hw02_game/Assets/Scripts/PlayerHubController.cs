@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public class PlayerHubController : MonoBehaviour
     public GameObject player;
     public Camera cam;
     public static PlayerHubController Instance;
+    private static Animator animator;
 
     private GameManager gm;
     private Combatant combatantScript;
@@ -19,6 +21,7 @@ public class PlayerHubController : MonoBehaviour
     public float movementSpeed;
     private float inputHorizontal;
     private float inputVertical;
+    private bool facingRight = false;
 
     //Health/HealthBar Stuff
     [SerializeField] PlayerHealthBar hb;
@@ -35,6 +38,7 @@ public class PlayerHubController : MonoBehaviour
         playerRigidBody = GetComponent<Rigidbody2D>();
         gm = GetComponent<GameManager>();
         combatantScript = GetComponent<Combatant>();
+        animator = GetComponent<Animator>();
 
         if (Instance != null)
         {
@@ -55,6 +59,7 @@ public class PlayerHubController : MonoBehaviour
     void Update()
     {
         movePlayer();
+        animate();
     }
 
     private void movePlayer()
@@ -64,6 +69,36 @@ public class PlayerHubController : MonoBehaviour
         inputVertical = Input.GetAxisRaw("Vertical");
         //Update player's position
         playerRigidBody.velocity = new Vector2(movementSpeed * inputHorizontal, movementSpeed * inputVertical);
+    }
+
+    private void animate()
+    {
+        if (inputHorizontal != 0 || inputVertical != 0) //I'm moving
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false); //I'm idle
+        }
+
+        if (inputHorizontal > 0 && !facingRight)
+        {
+            flip();
+        }
+        else if (inputHorizontal < 0 && facingRight)
+        {
+            flip();
+        }
+    }
+
+    private void flip()
+    {
+        Vector3 currentScale = gameObject.transform.localScale; //Get current scale
+        currentScale.x *= -1; //Opposite it (-1 becomes 1 and vice versa). This flips the sprite 
+        gameObject.transform.localScale = currentScale; //Set it
+        facingRight = !facingRight; //Flip boolean also
+        hb.flipHealthBar(); //Flip health bar since I just flipped the player (which also flips the health bar)
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -129,6 +164,12 @@ public class PlayerHubController : MonoBehaviour
         {
             //GIVE PLAYER DAGGER
             Instantiate(swordToGivePlayer, playerPosition.position, swordToGivePlayer.transform.rotation);
+
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("GoldSack"))
+        {
+            //GIVE PLAYER GOLD
 
             Destroy(collision.gameObject);
         }
