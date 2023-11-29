@@ -521,9 +521,10 @@ MonoBehaviour:
   player: {fileID: 2657790854026150831}
   cam: {fileID: 0}
   movementSpeed: 6
-  hb: {fileID: 0}
+  hb: {fileID: 8018723707767929095}
   playerPosition: {fileID: 7427381601491457556}
-  swordToGivePlayer: {fileID: 4210864901907727509, guid: d8e0b3657420eaf41a375d0fc511b84f,
+  backArmPosition: {fileID: 1681180107607418040}
+  daggerToGivePlayer: {fileID: 4210864901907727509, guid: 98b5cd39ecb8c0242b6c6d06b3ae7e88,
     type: 3}
 --- !u!114 &1177380348370305308
 MonoBehaviour:

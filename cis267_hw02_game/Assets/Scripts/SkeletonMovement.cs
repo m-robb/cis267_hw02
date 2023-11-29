@@ -81,7 +81,7 @@ public class SkeletonMovement : MonoBehaviour
 
     private void randomMovement()
     {
-        Debug.Log("RandomMovement()");
+        //Debug.Log("RandomMovement()");
         directionX = Random.Range(-1f,1f);
         directionY = Random.Range(-1f, 1f);
         directionDesired = new Vector3(directionX, directionY, 0).normalized;     //direction skeleton should go

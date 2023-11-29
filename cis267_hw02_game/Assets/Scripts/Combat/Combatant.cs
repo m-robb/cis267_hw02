@@ -22,13 +22,13 @@ public class Combatant : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D collision)
 	{
-		Debug.Log(name + " detected something.");
+		//Debug.Log(name + " detected something.");
 		string tag;
 
 		tag = collision.tag;
 
 		Debug.Log(tag);
-
+		
 		if (tag == TAG_WEAPON) {
 			Weapon weapon;
 
