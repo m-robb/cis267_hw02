@@ -121,15 +121,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Sword
     originalName: 
-    pivot: {x: 0.5, y: -0.027777778}
+    pivot: {x: 0.8611111, y: -1.7857144}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 14
-      height: 36
+      width: 36
+      height: 14
     spriteID: 2913d5274bd0665e0b9672ebf6ce1592
     spriteBone: []
     spriteOutline: []
@@ -151,10 +151,10 @@ ScriptedImporter:
     - name: Sword
       frameIndex: 0
       cellRect:
-        x: 25
-        y: 1
-        width: 14
-        height: 36
+        x: 1
+        y: 25
+        width: 36
+        height: 14
       spriteId: 2913d5274bd0665e0b9672ebf6ce1592
     linkedCells: []
     parentIndex: -1

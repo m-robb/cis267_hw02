@@ -11,4 +11,12 @@ public class EnemyHealthBars : MonoBehaviour
     {
         slider.value = curHealth / maxHealth;
     }
+
+    public void flipHealthBar()
+    {
+        //Flips health bar
+        Vector3 currentScale = gameObject.GetComponentInParent<Transform>().localScale;
+        currentScale.x *= -1;
+        gameObject.GetComponentInParent<Transform>().localScale = currentScale;
+    }
 }

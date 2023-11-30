@@ -6,7 +6,6 @@ TagManager:
   tags:
   - House1
   - Platform
-  - HubEnemy
   - Tree
   - Boss01Entrance
   - Boss02Entrance
@@ -14,6 +13,21 @@ TagManager:
   - Apple
   - HubEntrance
   - Boss02Ground
+  - PLAYER
+  - ENEMY
+  - WEAPON
+  - SkeletonBoundary
+  - Orc
+  - OrcAxe
+  - EnemyCow
+  - CowClub
+  - CowDagger
+  - Thief
+  - Skeleton
+  - ThiefDagger
+  - DaggerCollectable
+  - GoldSack
+  - AxeCollectable
   layers:
   - Default
   - TransparentFX

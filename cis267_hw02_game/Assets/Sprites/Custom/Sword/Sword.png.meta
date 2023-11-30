@@ -136,21 +136,42 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sword_Hilt
+      name: Sword_Blade_Top
       rect:
         serializedVersion: 2
-        x: 25
-        y: 1
-        width: 14
-        height: 17
+        x: 30
+        y: 29
+        width: 7
+        height: 6
       alignment: 9
-      pivot: {x: 0.5, y: 0.47058824}
+      pivot: {x: -1.7142859, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01f69891174fa25d0b6f5338f92c75c6
+      spriteID: ade804590a68ca7308a34eb86b07e994
+      internalID: 1382695004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Hilt
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 25
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f37941244f8abe14b01824643523f0d
       internalID: -689476506
       vertices: []
       indices: 
@@ -160,18 +181,18 @@ TextureImporter:
       name: Sword_Blade_Bottom
       rect:
         serializedVersion: 2
-        x: 29
-        y: 18
-        width: 6
-        height: 1
+        x: 18
+        y: 29
+        width: 1
+        height: 6
       alignment: 9
-      pivot: {x: 0.5, y: -0}
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae1d4fe39332ffcb0a6c7509f4da6c24
+      spriteID: d0a3f4abfa2454073a35ec45bc60d5d1
       internalID: -237083652
       vertices: []
       indices: 
@@ -181,40 +202,19 @@ TextureImporter:
       name: Sword_Blade_Middle
       rect:
         serializedVersion: 2
-        x: 29
-        y: 19
-        width: 6
-        height: 11
+        x: 19
+        y: 29
+        width: 11
+        height: 6
       alignment: 9
-      pivot: {x: 0.5, y: -0.09090909}
+      pivot: {x: -0.09090909, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7f552adae9468f9cbcf8c1bf939316c
+      spriteID: f38c10eda69bb048383bc72a99292e75
       internalID: 407894837
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sword_Blade_Top
-      rect:
-        serializedVersion: 2
-        x: 29
-        y: 30
-        width: 6
-        height: 7
-      alignment: 9
-      pivot: {x: 0.5, y: -1.7142859}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9aed363aac395b91aa168d65a3f3573
-      internalID: 1382695004
       vertices: []
       indices: 
       edges: []

@@ -1,23 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class SkeletonMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float startPositionY;
-    public float movementSpeed;
-    public float movementDistance;
     private Animator animator;
-    //private Vector2 curPos;
-    private bool moveDown;
-    private bool canMove;
     private Vector3 directionDesired;
+    private Vector3 startingPos;
+
+    private bool canMove;
+    //private bool attack;
+
     private float lastChange;
     public float waitTime;
+    public float movementSpeed;
+    public float movementDistance;
+    private float directionX;
+    private float directionY;
+    public float nextAttackTime;
+    public float attackRate;
+    public float attackDamage;
+
+    private static readonly int Vertical = Animator.StringToHash("Vertical");
+    private static readonly int Horizontal = Animator.StringToHash("Horizontal");
 
     //Health/HealthBar Stuff
     [SerializeField] EnemyHealthBars hb;
@@ -33,119 +45,157 @@ public class SkeletonMovement : MonoBehaviour
         hb.updateHealthBar(health, maxHealth);
 
         rb = GetComponent<Rigidbody2D>();
-        startPositionY = transform.position.y;
 
         animator = GetComponent<Animator>();
-        moveDown = true;
+        startingPos = transform.position;
         canMove = true;
         lastChange = -waitTime;
+        attackRate = 1f;
+        nextAttackTime = Time.time + attackRate;
     }
-
     
     void Update()
     {
-        rb.velocity = directionDesired * movementSpeed;
+        if(canMove)
+        {
+            rb.velocity = directionDesired * movementSpeed;
+        }
+        else
+        {
+            stopMoving();
+        }
+        animate();
     }
 
 	private void FixedUpdate() 
-        {
-            if(Time.time >= lastChange + waitTime) 
-            {
-                    lastChange = Time.time; //time since the program launched
-                    randomMovement();
-            }
-	}
-
-
-	private void walkSkeleton()
     {
-        if (canMove)
+        if(canMove)
         {
-            if (!moveDown)
+            if (Time.time >= lastChange + waitTime)
             {
-                rb.transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
-                animator.SetBool("isWalking", true);
-                //Debug.Log("Moving Up");
-            }
-            else
-            {
-                rb.transform.Translate(Vector2.down * movementSpeed * Time.deltaTime);
-                animator.SetBool("isWalking", true);
-                //Debug.Log("Moving Down");
-            }
-
-            if (transform.position.y <= startPositionY - movementDistance)
-            {
-                moveDown = false;
-            }
-
-            if (transform.position.y >= startPositionY)
-            {
-                moveDown = true;
+                lastChange = Time.time; //time since the program launched
+                randomMovement();
             }
         }
-
-    }
+	}
 
     private void randomMovement()
     {
-        float directionX = Random.Range(-1f,1f);
-        float directionY = Random.Range(-1f, 1f);
+        //Debug.Log("RandomMovement()");
+        directionX = Random.Range(-1f,1f);
+        directionY = Random.Range(-1f, 1f);
         directionDesired = new Vector3(directionX, directionY, 0).normalized;     //direction skeleton should go
-        Debug.Log(directionDesired);
+        animator.SetBool("isWalking", true);
+        //Debug.Log(directionDesired);
     }
 
     private void stopMoving()
     {
         //stop moving
+        canMove = false;
         directionDesired = Vector3.zero;
-
-
+        animator.SetBool("isWalking", false);
     }
 
-
+    private void animate()
+    {
+        if(directionX != 0 && directionY != 0)
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetFloat(Horizontal, directionX);
+            animator.SetFloat(Vertical, directionY);
+        }
+        if(!canMove)
+        {
+            animator.SetBool("isWalking", false);
+        }
+    }
     
     private void OnTriggerStay2D(Collider2D collision)
     {
+        Vector3 facePlayer;
+
         if(collision.gameObject.CompareTag("Player"))
         {
-            if (Vector3.Distance(collision.transform.position, transform.position) >= 1.25)
+            if (Vector3.Distance(collision.transform.position, transform.position) >= 1.9)
             {
-				directionDesired = (collision.transform.position - transform.position).normalized;
+                directionDesired = (collision.transform.position - transform.position).normalized;
                 rb.velocity = directionDesired * movementSpeed;
+                animator.SetFloat(Horizontal, directionX);
+                animator.SetFloat(Vertical, -directionY);
             }
-
-            else
+            else if (Vector3.Distance(collision.transform.position, transform.position) <= 1.8)
             {
-                canMove = false;
-                rb.velocity = Vector2.zero;
+                stopMoving();
+                facePlayer = (collision.transform.position - transform.position).normalized;
+                animator.SetFloat(Horizontal, directionX);
+                animator.SetFloat(Vertical, -directionY);
+
+                if (Time.time > nextAttackTime)
+                {
+                    animator.SetTrigger("swingSword");
+                    Debug.Log("Entered Attack");
+                    //attack = true;
+                }
+                else
+                {
+                    //attack = false;
+                    nextAttackTime = Time.time + attackRate;
+                    animator.ResetTrigger("swingSword");
+                }
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        canMove = false;
+        //canMove = false;
 
-        //Example
-        //if(collision.gameObject.CompareTag("Dagger")) //Dagger for example
-        //{
-            //Example health deduction
-            //health = health - collision.gameObject.getDaggerDamage();
-            //Update health bar
-            //hb.updateHealthBar(health, maxHealth);
-        //}
+        if (collision.gameObject.CompareTag("Player")) //Just "Player" for now, but will change to the player's weapon
+        {
+            takeDamage(20);
+        }
 
-        //Testing health bar - WORKS
-        //if (collision.gameObject.CompareTag("Player"))
-        //{
-        //    health = health - 1;
-        //    hb.updateHealthBar(health, maxHealth);
-        //}
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         canMove = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("SkeletonBoundary"))
+        {
+            directionDesired = (startingPos - transform.position).normalized;
+            rb.velocity = directionDesired * movementSpeed;
+            animator.SetFloat(Horizontal, -directionX);
+            animator.SetFloat(Vertical, -directionY);
+        }
+
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Exit trigger");
+            canMove = true; 
+            randomMovement();
+        }
+    }
+
+    private void takeDamage(float damage)
+    {
+        health -= damage;
+        hb.updateHealthBar(health, maxHealth);
+
+        if (health <= 0)
+        {
+            //Drop dagger(s)
+            //Die
+            Destroy(this.gameObject);
+        }
+    }
+
+    public float getAttackDamage()
+    {
+        return attackDamage;
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 941176715646134578}
   m_Layer: 0
   m_Name: Sack
-  m_TagString: Untagged
+  m_TagString: GoldSack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300130, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -114,7 +114,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -129,9 +129,19 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.234375, y: 1.0625}
-      - {x: -0.390625, y: 0.71875}
-      - {x: -0.390625, y: 0}
-      - {x: 0.390625, y: 0}
-      - {x: 0.390625, y: 1.0625}
+    - - {x: -0.21072435, y: 1.0010087}
+      - {x: -0.1589818, y: 0.71181035}
+      - {x: -0.29560184, y: 0.5365038}
+      - {x: -0.39771986, y: 0.24810505}
+      - {x: -0.3961444, y: 0.0867548}
+      - {x: -0.26291275, y: -0.0023651123}
+      - {x: 0.2687416, y: -0.0030949116}
+      - {x: 0.39771986, y: 0.08987188}
+      - {x: 0.39981747, y: 0.34678936}
+      - {x: 0.29347944, y: 0.5867703}
+      - {x: 0.18641233, y: 0.72144485}
+      - {x: 0.26824808, y: 0.9695871}
+      - {x: 0.2664008, y: 1.0692794}
+      - {x: 0.14409208, y: 1.0730121}
+      - {x: 0.035867214, y: 0.9820883}
   m_UseDelaunayMesh: 0
