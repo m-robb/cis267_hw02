@@ -297,7 +297,7 @@ MonoBehaviour:
   damageVelocityMultiplier: 2
   armed: 0
   pierce: 1
-  armDelay: 1.5
+  armingDelay: 0
 --- !u!50 &1331717650082641169
 Rigidbody2D:
   serializedVersion: 4
