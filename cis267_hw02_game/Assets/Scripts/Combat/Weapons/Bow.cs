@@ -35,12 +35,17 @@ public class Bow : MonoBehaviour {
 			+ "Measured in degrees.")]
 	public Vector3 launchAngle;
 
+	[Header("DANGEROUS")]
+	[Tooltip("Disregards all angles listed above. Follows the cursor.")]
+	public bool followAimDirection;
+
 	private LineRenderer stringRenderer;
 	private float offsetX;
 	private float height;
 	private float actionStart;
 	private bool isShooting;
 	private Vector3 windup;
+	private Vector3 windupBase;
 	private GameObject arrowNew;
 
 
@@ -62,6 +67,11 @@ public class Bow : MonoBehaviour {
 	}
 
 	void Update() {
+		windupBase = new Vector3(0.00f, 0.00f,
+				vector2ToDegrees(InputDirection.direction.v2));
+
+		if (Input.GetAxis("Fire1") > 0.00f) { shoot(); }
+
 		if (isShooting) {
 			float completion;
 
@@ -80,7 +90,8 @@ public class Bow : MonoBehaviour {
 			if (completion >= 1.00f) {
 				/* Release the projectile. */
 				arrowNew.GetComponent<Projectile>().launchAngle(
-						launchSpeed, windup.z);
+						launchSpeed,
+						windupBase.z + windup.z);
 				arrowNew.transform.parent = null;
 
 				idle();
@@ -89,7 +100,8 @@ public class Bow : MonoBehaviour {
 			}
 		}
 
-		transform.localEulerAngles = convertAnglesVector3(windup);
+		transform.localEulerAngles = convertAnglesVector3(windupBase
+				+ windup);
 	}
 
 
@@ -121,7 +133,10 @@ public class Bow : MonoBehaviour {
 	public void idle() {
 		stringCurve(0.00f);
 		transform.localPosition = idleOffset;
-		windup = idleAngle;
+
+		if (!followAimDirection) {
+			windup = idleAngle;
+		}
 	}
 
 	/*

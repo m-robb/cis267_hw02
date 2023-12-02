@@ -9,13 +9,13 @@ public class Arrow : MonoBehaviour {
 	public GameObject fletching;
 	[SerializeField] private float shaftLengthMultiplier;
 
-	private Renderer shaftRenderer;
-	private Renderer fletchingRenderer;
+	private SpriteRenderer shaftRenderer;
+	private SpriteRenderer fletchingRenderer;
 
 
 	void Start() {
-		shaftRenderer = shaft.GetComponent<Renderer>();
-		fletchingRenderer = fletching.GetComponent<Renderer>();
+		shaftRenderer = shaft.GetComponent<SpriteRenderer>();
+		fletchingRenderer = fletching.GetComponent<SpriteRenderer>();
 
 		shaftLength(shaftLengthMultiplier);
 	}
@@ -25,8 +25,8 @@ public class Arrow : MonoBehaviour {
 	 * Changes the arrow shaft's length.
 	 */
 	public void shaftLength(float multiplier) {
-		Bounds shaftBounds; /* Not cacheable. */
-		Bounds fletchingBounds;
+		Vector3 shaftSize;
+		Vector3 fletchingSize;
 
 		/* Set new size for shaft */
 		shaftLengthMultiplier = multiplier;
@@ -34,15 +34,18 @@ public class Arrow : MonoBehaviour {
 				0, shaftLengthMultiplier);
 
 		/* Get bounds to match edges. */
-		shaftBounds = shaftRenderer.bounds;
-		fletchingBounds = fletchingRenderer.bounds;
+		shaftSize = Vector3.Scale(shaftRenderer.sprite.bounds.size,
+				shaft.transform.localScale);
+		fletchingSize = Vector3.Scale(
+				fletchingRenderer.sprite.bounds.size,
+				fletching.transform.localScale);
 
 		fletching.transform.localPosition = Vector3.zero;
 		shaft.transform.localPosition = v3Inc(
 				fletching.transform.localPosition, 0,
-				fletchingBounds.size.x);
+				fletchingSize.x);
 		head.transform.localPosition = v3Inc(
 				shaft.transform.localPosition, 0,
-				shaftBounds.size.x);
+				shaftSize.x);
 	}
 }

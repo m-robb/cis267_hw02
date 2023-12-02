@@ -5,14 +5,21 @@ using UnityEngine;
  */
 public static class Utilities {
 	/*
-	 *************
-	 * CONSTANTS *
-	 *************
+	 *********
+	 * INPUT *
+	 *********
 	 */
-	public const string AXIS_X = "Horizontal";
-	public const string AXIS_Y = "Vertical";
+	public const string AXIS_MOVEMENT_X = "MovementX";
+	public const string AXIS_MOVEMENT_Y = "MovementY";
+	public const string AXIS_DIRECTION_X = "DirectionX";
+	public const string AXIS_DIRECTION_Y = "DirectionY";
 
-	/* TAGS */
+
+	/*
+	 ********
+	 * TAGS *
+	 ********
+	 */
 	public const string TAG_PLAYER = "PLAYER";
 	public const string TAG_ENEMY = "ENEMY";
 	public const string TAG_WEAPON = "WEAPON";
@@ -62,6 +69,19 @@ public static class Utilities {
 	}
 
 
+	/*
+	 **********
+	 * ANGLES *
+	 **********
+	 */
+
+	/*
+	 * Converts from degrees (where 0.00f points to the right) to something
+	 * 		Unity understands.
+	 */
+	public static float convertAngles(float degrees) {
+		return ((degrees + 180.00f) % 360.00f) - 180.00f;
+	}
 
 	/*
 	 * Converts an entire vector from degrees (where 0.00f points to
@@ -75,18 +95,42 @@ public static class Utilities {
 		);
 	}
 
+	/*
+	 * Converts an angle measured in degrees to a unit Vector3.
+	 */
+	public static Vector3 degreesToVector3(float degrees) {
+		float angleRadians;
+
+		angleRadians = Mathf.Deg2Rad * convertAngles(degrees);
+
+		return new Vector3(Mathf.Cos(angleRadians),
+				Mathf.Sin(angleRadians), 0.00f).normalized;
+	}
 
 	/*
-	 *********
-	 * FLOAT *
-	 *********
+	 * Converts an angle measured in degrees to a unit Vector2.
 	 */
+	public static Vector2 degreesToVector2(float degrees) {
+		float angleRadians;
+
+		angleRadians = Mathf.Deg2Rad * convertAngles(degrees);
+
+		return new Vector2(Mathf.Cos(angleRadians),
+				Mathf.Sin(angleRadians)).normalized;
+	}
 
 	/*
-	 * Converts from degrees (where 0.00f points to the right) to something
-	 * 		Unity understands.
+	 * Converts an Vector2 into an angle measured in degrees.
 	 */
-	public static float convertAngles(float degrees) {
-		return ((degrees + 180.00f) % 360.00f) - 180.00f;
+	public static float vector2ToDegrees(Vector2 vector) {
+		return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+	}
+
+	/*
+	 * Converts an Vector3 into an angle measured in degrees.
+	 * Note: disregards the z component.
+	 */
+	public static float vector3ToDegrees(Vector3 vector) {
+		return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
 	}
 }

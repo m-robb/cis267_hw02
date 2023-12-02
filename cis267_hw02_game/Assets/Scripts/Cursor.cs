@@ -54,19 +54,17 @@ public class Cursor : MonoBehaviour {
 	 * Multiplies movement values by Time.deltaTime: call in Update.
 	 */
 	private void move() {
-		float horizontal;
-		float vertical;
+		Vector2 direction;
 
 		/* Update position. */
-		horizontal = Input.GetAxisRaw(AXIS_X);
-		vertical = Input.GetAxisRaw(AXIS_Y);
+		direction = InputDirection.direction.v2;
 
-		if (horizontal != 0.00f) {
-			position.x += horizontal * speed * Time.deltaTime;
+		if (direction.x != 0.00f) {
+			position.x += direction.x * speed * Time.deltaTime;
 		}
-		if (vertical != 0.00f) {
+		if (direction.y != 0.00f) {
 			/* Additional scaling to account for aspect ratio. */
-			position.y += vertical * speed * Camera.main.aspect
+			position.y += direction.y * speed * Camera.main.aspect
 					* Time.deltaTime;
 		}
 

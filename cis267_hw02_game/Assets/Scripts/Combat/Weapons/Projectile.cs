@@ -56,8 +56,7 @@ public class Projectile : Weapon {
 
 		angleRadians = Mathf.Deg2Rad * convertAngles(angle);
 
-		launch(speed, new Vector3(Mathf.Cos(angleRadians),
-				Mathf.Sin(angleRadians), 0.00f));
+		launch(speed, degreesToVector3(angle));
 	}
 
 	/*
