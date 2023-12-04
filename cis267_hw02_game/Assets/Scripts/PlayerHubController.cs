@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +11,7 @@ public class PlayerHubController : MonoBehaviour
     public GameObject player;
     public Camera cam;
     public static PlayerHubController Instance;
-    private static Animator animator;
+    private Animator animator;
 
     private GameManager gm;
     private Combatant combatantScript;
