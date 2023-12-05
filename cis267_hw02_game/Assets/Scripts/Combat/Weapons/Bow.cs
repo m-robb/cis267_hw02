@@ -68,7 +68,7 @@ public class Bow : MonoBehaviour {
 
 	void Update() {
 		windupBase = new Vector3(0.00f, 0.00f,
-				vector2ToDegrees(InputDirection.direction.v2));
+				vector2ToDegrees(In.direction.v2));
 
 		if (Input.GetAxis("Fire1") > 0.00f) { shoot(); }
 

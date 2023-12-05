@@ -9,10 +9,13 @@ public static class Utilities {
 	 * INPUT *
 	 *********
 	 */
-	public const string AXIS_MOVEMENT_X = "MovementX";
-	public const string AXIS_MOVEMENT_Y = "MovementY";
-	public const string AXIS_DIRECTION_X = "DirectionX";
-	public const string AXIS_DIRECTION_Y = "DirectionY";
+	public const string INPUT_AXIS_MOVEMENT_X = "MovementX";
+	public const string INPUT_AXIS_MOVEMENT_Y = "MovementY";
+	public const string INPUT_AXIS_DIRECTION_X = "DirectionX";
+	public const string INPUT_AXIS_DIRECTION_Y = "DirectionY";
+	public const string INPUT_BUTTON_ACCEPT = "Accept";
+	public const string INPUT_BUTTON_REJECT = "Reject";
+	public const string INPUT_BUTTON_ATTACK01 = "Attack01";
 
 
 	/*
@@ -132,5 +135,21 @@ public static class Utilities {
 	 */
 	public static float vector3ToDegrees(Vector3 vector) {
 		return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+	}
+
+
+
+	/*
+	 ***********
+	 * BITWISE *
+	 ***********
+	 */
+
+	/*
+	 * Returns true if the bitfield has all of the flags.
+	 * Can be used with one or more flags.
+	 */
+	public static bool hasFlag(uint bitfield, uint flags) {
+		return (bitfield & flags) == flags;
 	}
 }
