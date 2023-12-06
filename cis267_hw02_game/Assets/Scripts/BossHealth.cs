@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    public string name;
+    public string go_name;
     private Slider healthBar;
-    private GameObject boss;
+    private GameObject entity;
     private Combatant currentHealth;
     
 
     void Start() {
-        boss = GameObject.Find(name);
-        currentHealth = boss.GetComponent<Combatant>();
+        entity = GameObject.Find(go_name);
+        currentHealth = entity.GetComponent<Combatant>();
         healthBar = this.GetComponent<Slider>();
     }
 

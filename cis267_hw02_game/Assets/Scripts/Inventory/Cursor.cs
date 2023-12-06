@@ -9,14 +9,16 @@ using UnityEngine;
  * 		to the main camera.
  */
 public class Cursor : MonoBehaviour {
-	/* The sprite to be used for the cursor. */
-	public Sprite sprite;
-	/* Measured in percent of window (width) per second at full tilt. */
+	[Tooltip("The sprite to be used for the cursor.")]
+	[SerializeField] private Sprite sprite;
+	[Tooltip("Measured in percent of window (width) per second"
+			+ "at full tilt.")]
+	[Min(0.00f)]
 	public float speed;
 
 	private SpriteRenderer spriteRenderer;
 	/* A percentage of the camera's render region. */
-	private Vector3 position;
+	[HideInInspector] public Vector3 position;
 
 	/* Make the cursor available to everyone. */
 	public static Cursor cursor;
@@ -24,7 +26,7 @@ public class Cursor : MonoBehaviour {
 
 	void Start() {
 		if (Cursor.cursor) {
-			Debug.Log("There may only be one Cursor.");
+			Debug.LogWarning("There may only be one Cursor.", this);
 			Destroy(this); /* Only destroys the script. */
 		}
 
@@ -41,32 +43,17 @@ public class Cursor : MonoBehaviour {
 	}
 
 	void Update() {
-		move();
-	}
-
-	void OnEnable() {
-		reset();
-	}
-
-
-	/*
-	 * Moves the cursor based on joystick movement or button presses (axes).
-	 * Multiplies movement values by Time.deltaTime: call in Update.
-	 */
-	private void move() {
-		float horizontal;
-		float vertical;
+		Vector2 direction;
 
 		/* Update position. */
-		horizontal = Input.GetAxisRaw(AXIS_X);
-		vertical = Input.GetAxisRaw(AXIS_Y);
-
-		if (horizontal != 0.00f) {
-			position.x += horizontal * speed * Time.deltaTime;
+		direction.x = Input.GetAxisRaw(AXIS_X);
+		direction.y = Input.GetAxisRaw(AXIS_Y);
+		if (direction.x != 0.00f) {
+			position.x += direction.x * speed * Time.deltaTime;
 		}
-		if (vertical != 0.00f) {
+		if (direction.y != 0.00f) {
 			/* Additional scaling to account for aspect ratio. */
-			position.y += vertical * speed * Camera.main.aspect
+			position.y += direction.y * speed * Camera.main.aspect
 					* Time.deltaTime;
 		}
 
@@ -78,12 +65,17 @@ public class Cursor : MonoBehaviour {
 		transform.position = Camera.main.ViewportToWorldPoint(position);
 	}
 
+	void OnEnable() {
+		reset();
+	}
+
+
 	/*
 	 * Enables or disables the cursor.
 	 * Simply calls the SetActive function.
 	 */
-	public void enable(bool b) {
-		gameObject.SetActive(b);
+	public void enable(bool enabled) {
+		gameObject.SetActive(enabled);
 	}
 
 	/*

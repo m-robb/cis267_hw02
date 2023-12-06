@@ -1,0 +1,20 @@
+using static Utilities;
+using UnityEngine;
+
+
+public class Inventory : MonoBehaviour {
+	[Tooltip("The number of items able to be stored in the inventory.")]
+	[SerializeField] private int capacity;
+
+	[Tooltip("The list of items in the inventory.")]
+	[SerializeField] private 
+
+
+	void Start() {
+		
+	}
+
+	void OnEnable() {
+
+	}
+}
