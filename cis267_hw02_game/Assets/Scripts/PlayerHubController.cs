@@ -34,6 +34,7 @@ public class PlayerHubController : MonoBehaviour
     public GameObject axeToGivePlayer;
     private GameObject emptyObj;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +63,7 @@ public class PlayerHubController : MonoBehaviour
     {
         movePlayer();
         animate();
+        swingSword();
     }
 
     private void movePlayer()
@@ -202,4 +204,13 @@ public class PlayerHubController : MonoBehaviour
         health = combatantScript.curHealth();
         hb.updateHealthBar(health, maxHealth);
     }
+
+    private void swingSword()
+    {
+        if (Input.GetAxisRaw("Fire1") != 0)
+        {
+            GetComponentInChildren<Sword>().swing();
+        }
+    }
+
 }
