@@ -10,6 +10,8 @@ public class PlayerBossMovement : MonoBehaviour
     private float inputHorizontal;
     public float jumpForce;
     private bool isGrounded = false;
+    private bool facingRight = false;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -21,13 +23,39 @@ public class PlayerBossMovement : MonoBehaviour
     void Update()
     {
         movementHorizontal();
+        
         jump();
+        
+        //Debug.Log(rb.velocity);
     }
 
     private void movementHorizontal()
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(movementSpeed * inputHorizontal, rb.velocity.y);
+
+        //if (inputHorizontal != 0) 
+        //{
+        //    animator.SetBool("isWalking", true);
+        //}
+        //else
+        //{
+        //    animator.SetBool("isWalking", false); 
+        //}
+
+
+
+        if (facingRight == false && inputHorizontal > 0)
+        {
+            Debug.Log("if statement");
+            flip();
+
+        }
+        else if (facingRight == true && inputHorizontal < 0)
+        {
+            //Debug.Log("2nd if statement");
+            flip();
+        }
     }
 
     private void jump()
@@ -38,6 +66,7 @@ public class PlayerBossMovement : MonoBehaviour
             {
                 rb.AddForce(new Vector2(rb.velocity.x, jumpForce));
                 isGrounded = false;
+
             }
         }
     }
@@ -67,4 +96,10 @@ public class PlayerBossMovement : MonoBehaviour
             isGrounded = false;
         }
     }
+    private void flip()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(0f, 180f, 0f);
+    }
+    
 }
