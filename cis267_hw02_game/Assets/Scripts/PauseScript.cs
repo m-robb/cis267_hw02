@@ -16,17 +16,20 @@ public class PauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Submit") > 0 && paused == false)
+        if (Input.GetKeyDown(KeyCode.Joystick1Button7))
         {
-            Time.timeScale = 0f;
-            pauseMenu.SetActive(true);
-            paused = true;
-        }
-        if (Input.GetAxis("Submit") > 0 && paused == true)
-        {
-            Time.timeScale = 1.0f;
-            pauseMenu.SetActive(false);
-            paused = false;
+            if (paused == true)
+            {
+                Time.timeScale = 1.0f;
+                pauseMenu.SetActive(false);
+                paused = false;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+                pauseMenu.SetActive(true);
+                paused = true;
+            }
         }
     }
 }
