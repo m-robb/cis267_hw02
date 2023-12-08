@@ -124,6 +124,7 @@ public class Combatant : MonoBehaviour
 	private void die()
 	{
 		Debug.Log(gameObject.name + " was slain.");
-		Destroy(this.gameObject);
+
+		//Don't destroy game object here. It will mess up enemies dropping their weapons.
 	}
 }

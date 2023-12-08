@@ -1771,6 +1771,9 @@ MonoBehaviour:
   hb: {fileID: 7143250726299276814}
   attackDamage: 15
   physicalDamage: 5
+  weaponToDrop: {fileID: 7038937709788227684, guid: 632785ec227cf7945ab2af7cb82f5ee9,
+    type: 3}
+  cowLocation: {fileID: 5499048073028903002}
 --- !u!210 &-8151034262129335601
 SortingGroup:
   m_ObjectHideFlags: 0

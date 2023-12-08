@@ -54,6 +54,7 @@ public class OrcController : MonoBehaviour
         //Move an animate thief
         moveThief();
         animate();
+        dropAxe();
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
     }
 
@@ -189,5 +190,15 @@ public class OrcController : MonoBehaviour
     public float getPhysicalDamage()
     {
         return physicalDamage;
+    }
+
+    private void dropAxe()
+    {
+        if (combatantScript.curHealth() <= 0)
+        {
+            Instantiate(axeToDrop, orcLocation.position, axeToDrop.transform.rotation);
+
+            Destroy(this.gameObject);
+        }
     }
 }

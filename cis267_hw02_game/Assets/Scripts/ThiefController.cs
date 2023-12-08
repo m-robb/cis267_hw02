@@ -55,6 +55,7 @@ public class ThiefController : MonoBehaviour
         //Move an animate thief
         moveThief();
         animate();
+        dropDagger();
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
     }
 
@@ -180,5 +181,15 @@ public class ThiefController : MonoBehaviour
     public float getAttackDamage()
     {
         return attackDamage;
+    }
+
+    private void dropDagger()
+    {
+        if(combatantScript.curHealth() <= 0)
+        {
+            Instantiate(daggerToDrop, thiefLocation.position, daggerToDrop.transform.rotation);
+
+            Destroy(this.gameObject);
+        }
     }
 }

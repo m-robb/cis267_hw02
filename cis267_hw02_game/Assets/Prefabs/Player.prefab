@@ -580,6 +580,10 @@ MonoBehaviour:
     type: 3}
   axeToGivePlayer: {fileID: 2868506297185403300, guid: 056a1e86b15f6d24699df59941b44d8c,
     type: 3}
+  cowDaggerToGivePlayer: {fileID: 4210864901907727509, guid: 96d6f9bf3dcb8544380ea7456591f0b9,
+    type: 3}
+  cowClubToGiveToPlayer: {fileID: 4210864901907727509, guid: 5f308a8570332ce409cc450893e038ee,
+    type: 3}
 --- !u!114 &1177380348370305308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5122814cb66d8fd209aee2c77323e708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBase: 250
+  healthBase: 300
 --- !u!210 &5627132186278998740
 SortingGroup:
   m_ObjectHideFlags: 0

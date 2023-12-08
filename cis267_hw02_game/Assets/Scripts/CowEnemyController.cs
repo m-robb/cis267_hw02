@@ -27,6 +27,9 @@ public class CowEnemyController : MonoBehaviour
     private bool chasePlayer = false;
     private bool doubledSpeed = false;
 
+    public GameObject weaponToDrop;
+    public Transform cowLocation;
+
     void Start()
     {
         combatantScript = GetComponent<Combatant>();
@@ -53,6 +56,7 @@ public class CowEnemyController : MonoBehaviour
         //Move an animate thief
         moveThief();
         animate();
+        dropDagger();
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
     }
 
@@ -195,5 +199,15 @@ public class CowEnemyController : MonoBehaviour
     public float getPhysicalDamage()
     {
         return physicalDamage;
+    }
+
+    private void dropDagger()
+    {
+        if (combatantScript.curHealth() <= 0)
+        {
+            Instantiate(weaponToDrop, cowLocation.position, weaponToDrop.transform.rotation);
+
+            Destroy(this.gameObject);
+        }
     }
 }

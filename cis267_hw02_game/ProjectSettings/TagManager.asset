@@ -28,6 +28,8 @@ TagManager:
   - DaggerCollectable
   - GoldSack
   - AxeCollectable
+  - CowDaggerCollectable
+  - CowClubCollectable
   layers:
   - Default
   - TransparentFX
