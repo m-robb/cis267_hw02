@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,7 +30,7 @@ public class PlayerHubController : MonoBehaviour
 
     //Giving players GameObjects (Swords, Apples, etc)
     public Transform playerPosition;
-    public Transform backArmPosition;
+    public Transform handPosition;
     public GameObject daggerToGivePlayer;
     public GameObject axeToGivePlayer;
     private GameObject emptyObj;
@@ -167,12 +168,29 @@ public class PlayerHubController : MonoBehaviour
         else if (collision.gameObject.CompareTag("DaggerCollectable"))
         {
             //GIVE PLAYER DAGGER
+
             emptyObj = new GameObject("EmptyObjectForDagger"); //Make empty object for it
-            emptyObj.transform.parent = backArmPosition.gameObject.transform; //Make the player's back arm the parent
-            //Instantiate a newDagger
-            GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
-            newDagger.transform.parent = emptyObj.gameObject.transform; //Make the empty object the parent of the new dagger
-            emptyObj.transform.position = backArmPosition.transform.position; //Move the empty object holding the dagger to the arm
+            emptyObj.transform.parent = handPosition.gameObject.transform; //Make the player's back arm the parent
+            emptyObj.transform.position = handPosition.transform.position; //Place at hand
+
+            if (player.transform.localScale.x == 1.5) //Facing left
+            {
+                Debug.Log("Player facing left when picking up dagger");
+                GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
+                newDagger.transform.parent = emptyObj.gameObject.transform;
+                emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
+                emptyObj.transform.Rotate(0, 0, -30);
+
+
+            }
+            else if (player.transform.localScale.x == -1.5) //Facing right
+            {
+                Debug.Log("Player facing right when picking up dagger");
+                GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
+                newDagger.transform.parent = emptyObj.gameObject.transform;
+                emptyObj.transform.Rotate(0, 0, -30);
+            }
+
 
             //Destroy the collectable
             Destroy(collision.gameObject);
@@ -181,11 +199,11 @@ public class PlayerHubController : MonoBehaviour
         {
             //GIVE PLAYER AXE
             emptyObj = new GameObject("EmptyObjectForAxe"); //Make empty object for it
-            emptyObj.transform.parent = backArmPosition.gameObject.transform; //Make the player's back arm the parent
+            emptyObj.transform.parent = handPosition.gameObject.transform; //Make the player's back arm the parent
             //Instantiate a newAxe
             GameObject newAxe = Instantiate(axeToGivePlayer, playerPosition.position, axeToGivePlayer.transform.rotation);
             newAxe.transform.parent = emptyObj.gameObject.transform; //Make the empty object the parent of the new axe
-            emptyObj.transform.position = backArmPosition.transform.position; //Move the empty object holding the axe to the arm
+            emptyObj.transform.position = handPosition.transform.position; //Move the empty object holding the axe to the arm
 
             //Destroy the collectable
             Destroy(collision.gameObject);

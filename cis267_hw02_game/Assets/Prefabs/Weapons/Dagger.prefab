@@ -231,14 +231,14 @@ MonoBehaviour:
   blade: {fileID: 4867771776963523838}
   bladeLengthMultiplier: 1
   idleAngle: 15
-  idleOffset: {x: 0.6, y: -0.8, z: 0}
+  idleOffset: {x: 0, y: 0, z: 0}
   swingArc: -180
   swingAngle: 90
-  swingSpeed: 90
-  swingRadius: 1
-  stabSpeed: 1
-  stabStart: {x: 1, y: 0, z: 0}
-  stabEnd: {x: 2, y: 0, z: 0}
+  swingSpeed: 360
+  swingRadius: 0.5
+  stabSpeed: 3
+  stabStart: {x: 0, y: 0, z: 0}
+  stabEnd: {x: 1, y: 0, z: 0}
 --- !u!114 &3411658228509984204
 MonoBehaviour:
   m_ObjectHideFlags: 0
