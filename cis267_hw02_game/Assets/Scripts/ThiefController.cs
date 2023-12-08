@@ -11,8 +11,7 @@ public class ThiefController : MonoBehaviour
     private Animator animator;
 
     [SerializeField] EnemyHealthBars hb;
-    public float maxHealth;
-    public float health;
+    private Combatant combatantScript;
 
     public float attackDamage;
 
@@ -32,10 +31,10 @@ public class ThiefController : MonoBehaviour
 
     void Start()
     {
+        combatantScript = GetComponent<Combatant>();
         //Health Bar Stuff
         hb = GetComponentInChildren<EnemyHealthBars>();
-        health = maxHealth;
-        hb.updateHealthBar(health, maxHealth);
+        hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -56,6 +55,7 @@ public class ThiefController : MonoBehaviour
         //Move an animate thief
         moveThief();
         animate();
+        hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
     }
 
     private void FixedUpdate()
@@ -175,29 +175,6 @@ public class ThiefController : MonoBehaviour
         }
         //Stop moving animation wise
         animator.SetBool("isMoving", false);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player")) //Just "Player" for now, but will change to the player's weapon
-        {
-            takeDamage(20);
-        }
-    }
-
-    private void takeDamage(float damage)
-    {
-        health -= damage;
-        hb.updateHealthBar(health, maxHealth);
-
-        if (health <= 0)
-        {
-            //Drop dagger(s)
-            Instantiate(daggerToDrop, thiefLocation.position, daggerToDrop.transform.rotation);
-
-            //Die
-            Destroy(this.gameObject);
-        }
     }
 
     public float getAttackDamage()

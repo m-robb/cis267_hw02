@@ -734,6 +734,7 @@ GameObject:
   - component: {fileID: 2073819036393581109}
   - component: {fileID: 1006665882057245488}
   - component: {fileID: 7474115890851683104}
+  - component: {fileID: 9141663729224245253}
   m_Layer: 0
   m_Name: Thief
   m_TagString: Thief
@@ -890,9 +891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 2
   hb: {fileID: 2998800365437143449}
-  maxHealth: 50
-  health: 0
-  attackDamage: 15
+  attackDamage: 10
   daggerToDrop: {fileID: 864512866565507906, guid: 1bbb88d0458749942bd41bb1a80fce43,
     type: 3}
   thiefLocation: {fileID: 4000013306724104}
@@ -908,6 +907,19 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortAtRoot: 0
+--- !u!114 &9141663729224245253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012663239756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5122814cb66d8fd209aee2c77323e708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBase: 250
 --- !u!1 &1000012730742446
 GameObject:
   m_ObjectHideFlags: 0

@@ -1432,6 +1432,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -8151034262129335601}
+    - targetCorrespondingSourceObject: {fileID: 7112003683573990485, guid: 1df48aa8cc8beba4b9909bf1168e75da,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5688362155294975206}
     - targetCorrespondingSourceObject: {fileID: 3867992011426948898, guid: 1df48aa8cc8beba4b9909bf1168e75da,
         type: 3}
       insertIndex: -1
@@ -1765,8 +1769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 2
   hb: {fileID: 7143250726299276814}
-  maxHealth: 200
-  attackDamage: 30
+  attackDamage: 15
   physicalDamage: 5
 --- !u!210 &-8151034262129335601
 SortingGroup:
@@ -1780,6 +1783,19 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortAtRoot: 0
+--- !u!114 &5688362155294975206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592724057502700422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5122814cb66d8fd209aee2c77323e708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBase: 500
 --- !u!4 &7756708237709688618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2285168970816788231, guid: 1df48aa8cc8beba4b9909bf1168e75da,

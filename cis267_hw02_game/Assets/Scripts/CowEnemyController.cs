@@ -10,8 +10,7 @@ public class CowEnemyController : MonoBehaviour
     private Animator animator;
 
     [SerializeField] EnemyHealthBars hb;
-    public float maxHealth;
-    public float health;
+    private Combatant combatantScript;
 
     public float attackDamage;
     public float physicalDamage;
@@ -30,10 +29,10 @@ public class CowEnemyController : MonoBehaviour
 
     void Start()
     {
+        combatantScript = GetComponent<Combatant>();
         //Health Bar Stuff
         hb = GetComponentInChildren<EnemyHealthBars>();
-        health = maxHealth;
-        hb.updateHealthBar(health, maxHealth);
+        hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -54,6 +53,7 @@ public class CowEnemyController : MonoBehaviour
         //Move an animate thief
         moveThief();
         animate();
+        hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
     }
 
     private void FixedUpdate()
@@ -184,27 +184,6 @@ public class CowEnemyController : MonoBehaviour
             //Speed stuff
             movementSpeed = movementSpeed / 2;
             doubledSpeed = false;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player")) //Just "Player" for now, but will change to the player's weapon
-        {
-            takeDamage(50);
-        }
-    }
-
-    private void takeDamage(float damage)
-    {
-        health -= damage;
-        hb.updateHealthBar(health, maxHealth);
-
-        if (health <= 0)
-        {
-            //Drop club/dagger
-            //Die
-            Destroy(this.gameObject);
         }
     }
 

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2904328648818330380}
   - component: {fileID: 8003779304084219578}
   - component: {fileID: -3881163638388201166}
+  - component: {fileID: 3717372655876196458}
   m_Layer: 0
   m_Name: orc
   m_TagString: Orc
@@ -171,10 +172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   hb: {fileID: 9107166875833749158}
-  maxHealth: 400
-  health: 0
-  attackDamage: 40
-  physicalDamage: 5
+  attackDamage: 30
+  physicalDamage: 10
   axeToDrop: {fileID: 931368826084136491, guid: f5843547b90690340a8c4a1c15ffd501,
     type: 3}
   orcLocation: {fileID: 400000}
@@ -190,6 +189,19 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortAtRoot: 0
+--- !u!114 &3717372655876196458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5122814cb66d8fd209aee2c77323e708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBase: 750
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0

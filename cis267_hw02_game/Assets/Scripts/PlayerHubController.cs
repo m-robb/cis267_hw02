@@ -25,8 +25,6 @@ public class PlayerHubController : MonoBehaviour
 
     //Health/HealthBar Stuff
     [SerializeField] PlayerHealthBar hb;
-    private float health;
-    private float maxHealth;
 
     //Giving players GameObjects (Swords, Apples, etc)
     public Transform playerPosition;
@@ -54,9 +52,9 @@ public class PlayerHubController : MonoBehaviour
 
         //Health Bar Stuff
         hb = GetComponentInChildren<PlayerHealthBar>();
-        health = combatantScript.healthMax();
-        maxHealth = combatantScript.healthMax();
-        hb.updateHealthBar(health, maxHealth);
+        hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
+
+        givePlayerDaggerToStartWith();
     }
 
     // Update is called once per frame
@@ -65,6 +63,32 @@ public class PlayerHubController : MonoBehaviour
         movePlayer();
         animate();
         swingSword();
+        hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
+    }
+
+    private void givePlayerDaggerToStartWith()
+    {
+        emptyObj = new GameObject("EmptyObjectForDagger"); //Make empty object for it
+        emptyObj.transform.parent = handPosition.gameObject.transform; //Make the player's back arm the parent
+        emptyObj.transform.position = handPosition.transform.position; //Place at hand
+
+        if (player.transform.localScale.x == 1.5) //Facing left
+        {
+            Debug.Log("Player facing left when picking up dagger");
+            GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
+            newDagger.transform.parent = emptyObj.gameObject.transform;
+            emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
+            emptyObj.transform.Rotate(0, 0, -30);
+
+
+        }
+        else if (player.transform.localScale.x == -1.5) //Facing right
+        {
+            Debug.Log("Player facing right when picking up dagger");
+            GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
+            newDagger.transform.parent = emptyObj.gameObject.transform;
+            emptyObj.transform.Rotate(0, 0, -30);
+        }
     }
 
     private void movePlayer()
@@ -108,35 +132,9 @@ public class PlayerHubController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("ThiefDagger")) //Thief hits me with dagger
-        {
-            takeDamage(collision.gameObject.GetComponentInParent<ThiefController>().getAttackDamage()); //Take damage
-        }
-        else if (collision.gameObject.CompareTag("EnemyCow")) //Player runs into cow
-        {
-            takeDamage(collision.gameObject.GetComponent<CowEnemyController>().getPhysicalDamage());
-        }
-        else if (collision.gameObject.CompareTag("CowClub")) //Cow hits me with club
-        {
-            takeDamage(collision.gameObject.GetComponentInParent<CowEnemyController>().getAttackDamage());
-        }
-        else if (collision.gameObject.CompareTag("CowDagger")) //Cow hits me with dagger
-        {
-            takeDamage(collision.gameObject.GetComponentInParent<CowEnemyController>().getAttackDamage());
-        }
-        else if (collision.gameObject.CompareTag("Orc")) //Player runs into Orc
-        {
-            takeDamage(collision.gameObject.GetComponent<OrcController>().getPhysicalDamage());
-        }
-        else if (collision.gameObject.CompareTag("OrcAxe")) //Orc hits player with axe
-        {
-            takeDamage(collision.gameObject.GetComponentInParent<OrcController>().getAttackDamage());
-        }
-        else if (collision.gameObject.CompareTag("Skeleton")) //Player gets hit by/runs into skeleton
-        {
-            takeDamage(collision.gameObject.GetComponent<SkeletonMovement>().getAttackDamage());
-        }
-        else if (collision.gameObject.CompareTag("Boss01Entrance"))
+        
+
+        if (collision.gameObject.CompareTag("Boss01Entrance"))
         {
             //Go to boss02
             SceneManager.LoadScene("Boss01");
@@ -216,13 +214,6 @@ public class PlayerHubController : MonoBehaviour
         }
     }
 
-    private void takeDamage(float damage)
-    {
-        combatantScript.takeDamage(damage);
-        health = combatantScript.curHealth();
-        hb.updateHealthBar(health, maxHealth);
-    }
-
     private void swingSword()
     {
         if (Input.GetAxisRaw("Fire1") != 0)
@@ -230,5 +221,4 @@ public class PlayerHubController : MonoBehaviour
             GetComponentInChildren<Sword>().swing();
         }
     }
-
 }

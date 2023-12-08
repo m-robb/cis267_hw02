@@ -41,11 +41,50 @@ public class Combatant : MonoBehaviour
 
 	}
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.CompareTag("WEAPON"))
+        {
+            Debug.Log("Hit by player weapon");
+            takeDamage(collision.collider.gameObject.GetComponentInParent<Sword>().getAttackDamage());
+        }
+		if (collision.collider.gameObject.CompareTag("Orc"))
+		{
+            Debug.Log("Hit by orc himself");
+            takeDamage(collision.collider.gameObject.GetComponent<OrcController>().getPhysicalDamage());
+        }
+        if (collision.collider.gameObject.CompareTag("OrcAxe"))
+        {
+            Debug.Log("Hit by orc's axe");
+            takeDamage(collision.collider.gameObject.GetComponentInParent<OrcController>().getAttackDamage());
+        }
+		if (collision.collider.gameObject.CompareTag("ThiefDagger"))
+		{
+            Debug.Log("Hit by thief's dagger");
+            takeDamage(collision.collider.gameObject.GetComponentInParent<ThiefController>().getAttackDamage());
+        }
+        if (collision.collider.gameObject.CompareTag("EnemyCow"))
+        {
+            Debug.Log("Hit by cow himself");
+            takeDamage(collision.collider.gameObject.GetComponentInParent<CowEnemyController>().getPhysicalDamage());
+        }
+        if (collision.collider.gameObject.CompareTag("CowDagger"))
+        {
+            Debug.Log("Hit by cow's dagger");
+            takeDamage(collision.collider.gameObject.GetComponentInParent<CowEnemyController>().getAttackDamage());
+        }
+        if (collision.collider.gameObject.CompareTag("CowClub"))
+        {
+            Debug.Log("Hit by cow's club");
+            takeDamage(collision.collider.gameObject.GetComponentInParent<CowEnemyController>().getAttackDamage());
+        }
+    }
 
-	/*
+
+    /*
 	 * Returns the combatant's maximum health.
 	 */
-	public int healthMax()
+    public int healthMax()
 	{
 		return healthBase; /* Add modifiers for max health here. */
 	}
@@ -85,5 +124,6 @@ public class Combatant : MonoBehaviour
 	private void die()
 	{
 		Debug.Log(gameObject.name + " was slain.");
+		Destroy(this.gameObject);
 	}
 }

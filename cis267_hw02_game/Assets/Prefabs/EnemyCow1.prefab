@@ -584,6 +584,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8292852726834946839, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8292852726834946839, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8292852726834946839, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.437
       objectReference: {fileID: 0}
@@ -1133,15 +1143,19 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3332249339346338023, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8998306838759038469}
-    - targetCorrespondingSourceObject: {fileID: 3332249339346338023, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2518515936097197133}
     - targetCorrespondingSourceObject: {fileID: 3332249339346338023, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 8998306838759038469}
+    - targetCorrespondingSourceObject: {fileID: 3332249339346338023, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8273959144662510637}
+    - targetCorrespondingSourceObject: {fileID: 3332249339346338023, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1973011993827424230}
     - targetCorrespondingSourceObject: {fileID: -2173257868749325234, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
         type: 3}
       insertIndex: -1
@@ -1282,24 +1296,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &8998306838759038469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1165128195975869362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11ab6c95ce6f0f43b484161177fa218, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 2
-  hb: {fileID: 1481270589880854373}
-  maxHealth: 200
-  health: 0
-  attackDamage: 30
-  physicalDamage: 5
 --- !u!58 &2518515936097197133
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1335,6 +1331,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 2.75}
   serializedVersion: 2
   m_Radius: 10
+--- !u!114 &8998306838759038469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165128195975869362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d11ab6c95ce6f0f43b484161177fa218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 2
+  hb: {fileID: 1481270589880854373}
+  attackDamage: 15
+  physicalDamage: 5
 --- !u!210 &8273959144662510637
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -1347,6 +1359,19 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortAtRoot: 0
+--- !u!114 &1973011993827424230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165128195975869362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5122814cb66d8fd209aee2c77323e708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBase: 500
 --- !u!4 &2947453212510643359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7569794642016872502, guid: 8a96f944a0bc71742b44c9ef2eb6a03a,
@@ -1478,13 +1503,13 @@ PolygonCollider2D:
       - {x: -1.26, y: -0.26285714}
       - {x: -1.26, y: -0.12571429}
       - {x: -1.2714286, y: -0.068571426}
-    - - {x: -1.18, y: 0.34857142}
-      - {x: -1.18, y: 0.33714285}
-      - {x: -1.1571429, y: 0.31428573}
-      - {x: -1.0428572, y: 0.31428573}
-      - {x: -0.98, y: 0.32}
-      - {x: -0.95714283, y: 0.33714285}
-      - {x: -0.95714283, y: 0.34857142}
+    - - {x: -0.8908832, y: 0.054236032}
+      - {x: -0.8842696, y: 0.018497288}
+      - {x: -0.8828391, y: 0.0031907782}
+      - {x: -0.82752, y: -0.0024551041}
+      - {x: -0.8346801, y: -0.010001652}
+      - {x: -0.8778353, y: -0.0072801746}
+      - {x: -0.8970819, y: 0.01432785}
   m_UseDelaunayMesh: 0
 --- !u!1001 &4598959891816871630
 PrefabInstance:
