@@ -12,7 +12,7 @@ public class Combatant : MonoBehaviour
 	public int healthBase;
 
 	/* The combatant's current health. */
-	private int health;
+	public int health;
 
 
 	void Start()
@@ -34,7 +34,7 @@ public class Combatant : MonoBehaviour
 
 			weapon = collision.GetComponent<Weapon>();
 
-			takeDamage(weapon.hit());
+            takeDamage(weapon.hit());
 
 			Debug.Log(name + "'s new health: " + health);
 		}

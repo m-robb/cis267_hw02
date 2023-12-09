@@ -13,17 +13,20 @@ public class PlayerBossMovement : MonoBehaviour
     private bool facingRight = false;
     private Animator animator;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         movementHorizontal();
-        
+        swingSword();
         jump();
         
         //Debug.Log(rb.velocity);
@@ -34,16 +37,16 @@ public class PlayerBossMovement : MonoBehaviour
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(movementSpeed * inputHorizontal, rb.velocity.y);
 
-        //if (inputHorizontal != 0) 
-        //{
-        //    animator.SetBool("isWalking", true);
-        //}
-        //else
-        //{
-        //    animator.SetBool("isWalking", false); 
-        //}
+        if (inputHorizontal != 0) 
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false); 
+        }
 
-
+        Debug.Log("between");
 
         if (facingRight == false && inputHorizontal > 0)
         {
@@ -101,5 +104,12 @@ public class PlayerBossMovement : MonoBehaviour
         facingRight = !facingRight;
         transform.Rotate(0f, 180f, 0f);
     }
-    
+    private void swingSword()
+    {
+        if (Input.GetAxisRaw("Fire1") != 0)
+        {
+            GetComponentInChildren<Sword>().swing();
+        }
+    }
+
 }
