@@ -56,7 +56,8 @@ public class PlayerHubController : MonoBehaviour
         hb = GetComponentInChildren<PlayerHealthBar>();
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
 
-        givePlayerDaggerToStartWith();
+        //givePlayerDaggerToStartWith();
+        givePlayerAxeFromOrc();
     }
 
     // Update is called once per frame
@@ -162,95 +163,37 @@ public class PlayerHubController : MonoBehaviour
         {
             //GIVE PLAYER APPLE
 
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("GoldSack"))
+        {
+            //GIVE PLAYER GOLD
 
             Destroy(collision.gameObject);
         }
-        //=========COLLECT THIEF'S DAGGER===========
+        else if (collision.gameObject.CompareTag("Wood"))
+        {
+            //GIVE PLAYER WOOD
+
+            Destroy(collision.gameObject);
+        }
         else if (collision.gameObject.CompareTag("DaggerCollectable"))
         {
-            //GIVE PLAYER DAGGER
-
-            emptyObj = new GameObject("EmptyObjectForWeapon"); //Make empty object for it
-            emptyObj.transform.parent = handPosition.gameObject.transform; //Make the player's back arm the parent
-            emptyObj.transform.position = handPosition.transform.position; //Place at hand
-
-            if (player.transform.localScale.x == 1.5) //Facing left
-            {
-                Debug.Log("Player facing left when picking up dagger");
-                GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
-                newDagger.transform.parent = emptyObj.gameObject.transform;
-                emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
-                emptyObj.transform.Rotate(0, 0, -30);
-
-
-            }
-            else if (player.transform.localScale.x == -1.5) //Facing right
-            {
-                Debug.Log("Player facing right when picking up dagger");
-                GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
-                newDagger.transform.parent = emptyObj.gameObject.transform;
-                emptyObj.transform.Rotate(0, 0, -30);
-            }
-
+            givePlayerDaggerFromThief();
+            
             //Destroy the collectable
             Destroy(collision.gameObject);
         }
-        //=========COLLECT ORC'S AXE===========
         else if (collision.gameObject.CompareTag("AxeCollectable"))
         {
-            //GIVE PLAYER AXE
-
-            emptyObj = new GameObject("EmptyObjectForWeapon");
-            emptyObj.transform.parent = handPosition.gameObject.transform;
-            emptyObj.transform.position = handPosition.transform.position;
-
-            if (player.transform.localScale.x == 1.5) //Facing left
-            {
-                Debug.Log("Player facing left when picking up axe");
-                GameObject newAxe = Instantiate(axeToGivePlayer, playerPosition.position, axeToGivePlayer.transform.rotation);
-                newAxe.transform.parent = emptyObj.gameObject.transform;
-                emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
-                emptyObj.transform.Rotate(0, 0, -30);
-
-
-            }
-            else if (player.transform.localScale.x == -1.5) //Facing right
-            {
-                Debug.Log("Player facing right when picking up axe");
-                GameObject newAxe = Instantiate(axeToGivePlayer, playerPosition.position, axeToGivePlayer.transform.rotation);
-                newAxe.transform.parent = emptyObj.gameObject.transform;
-                emptyObj.transform.Rotate(0, 0, -30);
-            }
+            givePlayerAxeFromOrc();
 
             //Destroy the collectable
             Destroy(collision.gameObject);
         }
-        //=========COLLECT COW'S DAGGER===========
         else if (collision.gameObject.CompareTag("CowDaggerCollectable"))
         {
-            //GIVE PLAYER DAGGER
-
-            emptyObj = new GameObject("EmptyObjectForDagger2");
-            emptyObj.transform.parent = handPosition.gameObject.transform;
-            emptyObj.transform.position = handPosition.transform.position;
-
-            if (player.transform.localScale.x == 1.5) //Facing left
-            {
-                Debug.Log("Player facing left when picking up dagger");
-                GameObject newDagger2 = Instantiate(cowDaggerToGivePlayer, playerPosition.position, cowDaggerToGivePlayer.transform.rotation);
-                newDagger2.transform.parent = emptyObj.gameObject.transform;
-                emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
-                emptyObj.transform.Rotate(0, 0, -30);
-                newDagger2.GetComponent<Sword>().idleOffset = new Vector3(1, 0.45f, 0);
-            }
-            else if (player.transform.localScale.x == -1.5) //Facing right
-            {
-                Debug.Log("Player facing right when picking up dagger");
-                GameObject newDagger2 = Instantiate(cowDaggerToGivePlayer, playerPosition.position, cowDaggerToGivePlayer.transform.rotation);
-                newDagger2.transform.parent = emptyObj.gameObject.transform;
-                emptyObj.transform.Rotate(0, 0, -30);
-                newDagger2.GetComponent<Sword>().idleOffset = new Vector3(1, 0.45f, 0);
-            }
+            givePlayerDaggerFromCow();
 
             //Destroy the collectable
             Destroy(collision.gameObject);
@@ -258,35 +201,9 @@ public class PlayerHubController : MonoBehaviour
         //=========COLLECT COW'S CLUB===========
         else if (collision.gameObject.CompareTag("CowClubCollectable"))
         {
-            //GIVE PLAYER CLUB
-
-            emptyObj = new GameObject("EmptyObjectForClub");
-            emptyObj.transform.parent = handPosition.gameObject.transform;
-            emptyObj.transform.position = handPosition.transform.position;
-
-            if (player.transform.localScale.x == 1.5) //Facing left
-            {
-                Debug.Log("Player facing left when picking up club");
-                GameObject newClub = Instantiate(cowClubToGiveToPlayer, playerPosition.position, cowClubToGiveToPlayer.transform.rotation);
-                newClub.transform.parent = emptyObj.gameObject.transform;
-                emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
-                newClub.GetComponent<Sword>().idleOffset = new Vector3(0.4f, 0.45f, 0);
-            }
-            else if (player.transform.localScale.x == -1.5) //Facing right
-            {
-                Debug.Log("Player facing right when picking up club");
-                GameObject newClub = Instantiate(cowClubToGiveToPlayer, playerPosition.position, cowClubToGiveToPlayer.transform.rotation);
-                newClub.transform.parent = emptyObj.gameObject.transform;
-                newClub.GetComponent<Sword>().idleOffset = new Vector3(0.4f, 0.45f, 0);
-            }
+            givePlayerClubFromCow();
 
             //Destroy the collectable
-            Destroy(collision.gameObject);
-        }
-        else if (collision.gameObject.CompareTag("GoldSack"))
-        {
-            //GIVE PLAYER GOLD
-
             Destroy(collision.gameObject);
         }
     }
@@ -296,6 +213,115 @@ public class PlayerHubController : MonoBehaviour
         if (Input.GetAxisRaw("Fire1") != 0)
         {
             GetComponentInChildren<Sword>().swing();
+        }
+    }
+
+
+
+    //========================COLLECT THIEF'S DAGGER========================
+    public void givePlayerDaggerFromThief()
+    {
+        //GIVE PLAYER DAGGER
+        emptyObj = new GameObject("EmptyObjectForWeapon"); //Make empty object for it
+        emptyObj.transform.parent = handPosition.gameObject.transform; //Make the player's back arm the parent
+        emptyObj.transform.position = handPosition.transform.position; //Place at hand
+
+        if (player.transform.localScale.x == 1.5) //Facing left
+        {
+            Debug.Log("Player facing left when picking up dagger");
+            GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
+            //Make dagger a child of the empty object
+            newDagger.transform.parent = emptyObj.gameObject.transform;
+            //Give it scale/direction
+            emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
+            //Give it rotation that looks good
+            emptyObj.transform.Rotate(0, 0, -30);
+
+
+        }
+        else if (player.transform.localScale.x == -1.5) //Facing right
+        {
+            Debug.Log("Player facing right when picking up dagger");
+            GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
+            newDagger.transform.parent = emptyObj.gameObject.transform;
+            emptyObj.transform.Rotate(0, 0, -30);
+        }
+    }
+
+    //========================COLLECT AXE FROM ORC========================
+    public void givePlayerAxeFromOrc()
+    {
+        //GIVE PLAYER AXE
+        emptyObj = new GameObject("EmptyObjectForWeapon");
+        emptyObj.transform.parent = handPosition.gameObject.transform;
+        emptyObj.transform.position = handPosition.transform.position;
+
+        if (player.transform.localScale.x == 1.5) //Facing left
+        {
+            Debug.Log("Player facing left when picking up axe");
+            GameObject newAxe = Instantiate(axeToGivePlayer, playerPosition.position, axeToGivePlayer.transform.rotation);
+            newAxe.transform.parent = emptyObj.gameObject.transform;
+            emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
+            newAxe.GetComponent<Sword>().idleOffset = new Vector3(0.02f, 0.15f, 0);
+
+        }
+        else if (player.transform.localScale.x == -1.5) //Facing right
+        {
+            Debug.Log("Player facing right when picking up axe");
+            GameObject newAxe = Instantiate(axeToGivePlayer, playerPosition.position, axeToGivePlayer.transform.rotation);
+            newAxe.transform.parent = emptyObj.gameObject.transform;
+        }
+    }
+
+    //========================COLLECT DAGGER FROM COW========================
+    public void givePlayerDaggerFromCow()
+    {
+        //GIVE PLAYER DAGGER
+        emptyObj = new GameObject("EmptyObjectForDagger2");
+        emptyObj.transform.parent = handPosition.gameObject.transform;
+        emptyObj.transform.position = handPosition.transform.position;
+
+        if (player.transform.localScale.x == 1.5) //Facing left
+        {
+            Debug.Log("Player facing left when picking up dagger");
+            GameObject newDagger2 = Instantiate(cowDaggerToGivePlayer, playerPosition.position, cowDaggerToGivePlayer.transform.rotation);
+            newDagger2.transform.parent = emptyObj.gameObject.transform;
+            emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
+            emptyObj.transform.Rotate(0, 0, -30);
+            newDagger2.GetComponent<Sword>().idleOffset = new Vector3(1, 0.45f, 0);
+        }
+        else if (player.transform.localScale.x == -1.5) //Facing right
+        {
+            Debug.Log("Player facing right when picking up dagger");
+            GameObject newDagger2 = Instantiate(cowDaggerToGivePlayer, playerPosition.position, cowDaggerToGivePlayer.transform.rotation);
+            newDagger2.transform.parent = emptyObj.gameObject.transform;
+            emptyObj.transform.Rotate(0, 0, -30);
+            newDagger2.GetComponent<Sword>().idleOffset = new Vector3(1, 0.45f, 0);
+        }
+    }
+
+    //========================COLLECT CLUB FROM COW========================
+    public void givePlayerClubFromCow()
+    {
+        //GIVE PLAYER CLUB
+        emptyObj = new GameObject("EmptyObjectForClub");
+        emptyObj.transform.parent = handPosition.gameObject.transform;
+        emptyObj.transform.position = handPosition.transform.position;
+
+        if (player.transform.localScale.x == 1.5) //Facing left
+        {
+            Debug.Log("Player facing left when picking up club");
+            GameObject newClub = Instantiate(cowClubToGiveToPlayer, playerPosition.position, cowClubToGiveToPlayer.transform.rotation);
+            newClub.transform.parent = emptyObj.gameObject.transform;
+            emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
+            newClub.GetComponent<Sword>().idleOffset = new Vector3(0.4f, 0.45f, 0);
+        }
+        else if (player.transform.localScale.x == -1.5) //Facing right
+        {
+            Debug.Log("Player facing right when picking up club");
+            GameObject newClub = Instantiate(cowClubToGiveToPlayer, playerPosition.position, cowClubToGiveToPlayer.transform.rotation);
+            newClub.transform.parent = emptyObj.gameObject.transform;
+            newClub.GetComponent<Sword>().idleOffset = new Vector3(0.4f, 0.45f, 0);
         }
     }
 }

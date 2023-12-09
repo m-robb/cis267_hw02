@@ -27,7 +27,7 @@ public class Combatant : MonoBehaviour
 
 		tag = collision.tag;
 
-		Debug.Log(tag);
+		//Debug.Log(tag);
 		
 		if (tag == TAG_WEAPON) {
 			Weapon weapon;

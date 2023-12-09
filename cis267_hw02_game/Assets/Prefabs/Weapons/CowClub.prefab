@@ -112,6 +112,7 @@ MonoBehaviour:
   stabStart: {x: 0, y: 0, z: 0}
   stabEnd: {x: 1, y: 0, z: 0}
   attackDamage: 60
+  treeDamage: 10
 --- !u!114 &3411658228509984204
 MonoBehaviour:
   m_ObjectHideFlags: 0

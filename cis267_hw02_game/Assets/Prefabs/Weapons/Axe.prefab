@@ -96,7 +96,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7977396487429396505}
   - component: {fileID: 678166303152196608}
-  - component: {fileID: 2002003696183977457}
   - component: {fileID: 7899164829239336944}
   - component: {fileID: 6510193027675112327}
   m_Layer: 0
@@ -175,21 +174,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2002003696183977457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2868506297185403300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b7390f5a47c016fb6a7ef2cb0eb7fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageFlat: 1
-  damageVelocityMultiplier: 2
-  armed: 0
 --- !u!114 &7899164829239336944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,14 +189,16 @@ MonoBehaviour:
   blade: {fileID: 416686332197571362}
   bladeLengthMultiplier: 1
   idleAngle: 0
-  idleOffset: {x: 0.6, y: -0.8, z: 0}
-  swingArc: 90
-  swingAngle: 0
-  swingSpeed: 180
-  swingRadius: 1
-  stabSpeed: 0
+  idleOffset: {x: 0, y: 0, z: 0}
+  swingArc: -90
+  swingAngle: 45
+  swingSpeed: 360
+  swingRadius: 0.65
+  stabSpeed: 3
   stabStart: {x: 0, y: 0, z: 0}
-  stabEnd: {x: 0, y: 0, z: 0}
+  stabEnd: {x: 1, y: 0, z: 0}
+  attackDamage: 50
+  treeDamage: 40
 --- !u!114 &6510193027675112327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b7390f5a47c016fb6a7ef2cb0eb7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageFlat: 0
-  damageVelocityMultiplier: 0
+  damageFlat: 1
+  damageVelocityMultiplier: 2
   armed: 0
