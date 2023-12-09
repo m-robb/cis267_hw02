@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3626296580864119944}
   m_Layer: 0
   m_Name: Blade
-  m_TagString: Untagged
+  m_TagString: WEAPON
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 6510193027675112327}
   m_Layer: 0
   m_Name: Axe
-  m_TagString: Untagged
+  m_TagString: WEAPON
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

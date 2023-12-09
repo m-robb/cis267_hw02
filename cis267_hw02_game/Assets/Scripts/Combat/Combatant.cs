@@ -34,9 +34,9 @@ public class Combatant : MonoBehaviour
 
 			weapon = collision.GetComponent<Weapon>();
 
-            takeDamage(weapon.hit());
+            //takeDamage(weapon.hit());
 
-			Debug.Log(name + "'s new health: " + health);
+			//Debug.Log(name + "'s new health: " + health);
 		}
 
 	}

@@ -232,8 +232,8 @@ MonoBehaviour:
   bladeLengthMultiplier: 1
   idleAngle: 15
   idleOffset: {x: 0, y: 0, z: 0}
-  swingArc: -180
-  swingAngle: 90
+  swingArc: -135
+  swingAngle: 45
   swingSpeed: 360
   swingRadius: 0.5
   stabSpeed: 3
