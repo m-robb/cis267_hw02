@@ -31,7 +31,12 @@ TagManager:
   - CowDaggerCollectable
   - CowClubCollectable
   - Wood
+<<<<<<< HEAD
   - Boss
+=======
+  - Bread
+  - EmptyObjectForHoldingItems
+>>>>>>> deb66bf475e12c82520a5443e7825c7c28710497
   layers:
   - Default
   - TransparentFX
