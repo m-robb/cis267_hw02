@@ -30,6 +30,7 @@ TagManager:
   - AxeCollectable
   - CowDaggerCollectable
   - CowClubCollectable
+  - Wood
   layers:
   - Default
   - TransparentFX

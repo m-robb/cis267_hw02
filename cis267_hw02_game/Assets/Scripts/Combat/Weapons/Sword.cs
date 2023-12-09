@@ -35,9 +35,11 @@ public class Sword : MonoBehaviour {
 	[Tooltip("Local position.\nMeasured in uu.")]
 	public Vector3 stabEnd;
 
-    [Header("Attack/Damage #s")] /* ------------------------------------------------- */
+    [Header("Damage #s")] /* ------------------------------------------------- */
     [Tooltip("Attack Damage")]
     public float attackDamage;
+    [Tooltip("Tree Damage")]
+    public float treeDamage;
 
 
     private bool isSwinging;
@@ -152,5 +154,10 @@ public class Sword : MonoBehaviour {
 	public float getAttackDamage()
 	{
 		return attackDamage;
+	}
+
+	public float getTreeDamage()
+	{
+		return treeDamage;
 	}
 }
