@@ -31,6 +31,7 @@ TagManager:
   - CowDaggerCollectable
   - CowClubCollectable
   - Wood
+  - Boss
   layers:
   - Default
   - TransparentFX

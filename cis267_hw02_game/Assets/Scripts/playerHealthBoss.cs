@@ -7,18 +7,27 @@ using UnityEngine.UI;
 public class playerHealthBoss : MonoBehaviour
 {
     public Image healthbar;
-    private Combatant combatant;
     public GameObject thing;
+    public float health;
+    public float maxHealth;
+
     // Start is called before the first frame update
     void Start()
     {
-        combatant = thing.GetComponent<Combatant>();
+        health = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthbar.fillAmount = Mathf.Clamp((float)combatant.curHealth() / combatant.healthMax(), 0, 1);
+        healthbar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
         
+        
+    }
+    public void changeHealth(float damage)
+    {
+        Debug.Log(health);
+        health = health - damage;
+        //Debug.Log(health);
     }
 }

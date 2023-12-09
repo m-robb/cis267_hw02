@@ -5,7 +5,7 @@ using UnityEngine;
 public class disableBossDoor : MonoBehaviour
 {
     private Combatant currentHealth;
-    private GameObject door;
+    public GameObject door;
 
 
     // Start is called before the first frame update

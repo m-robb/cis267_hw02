@@ -7,6 +7,7 @@ public class boss02 : MonoBehaviour
     public GameObject bullet;
     public Transform bulletpos;
     public Transform bullettpos2;
+    
 
 
     private float timer;
@@ -33,6 +34,18 @@ public class boss02 : MonoBehaviour
             Instantiate(bullet, bullettpos2.position, Quaternion.identity);
         }
 
-
+        
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+         
+        
+
+            
+        
+    }
+
+
+
+
 }

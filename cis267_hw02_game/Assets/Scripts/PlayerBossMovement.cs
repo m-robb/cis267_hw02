@@ -12,6 +12,10 @@ public class PlayerBossMovement : MonoBehaviour
     private bool isGrounded = false;
     private bool facingRight = false;
     private Animator animator;
+    public GameObject canvas;
+    private GameObject canvasChild;
+    private bool canHitBoss;
+    
 
 
 
@@ -20,6 +24,8 @@ public class PlayerBossMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        canHitBoss = true;
+        
     }
 
     // Update is called once per frame
@@ -46,7 +52,7 @@ public class PlayerBossMovement : MonoBehaviour
             animator.SetBool("isWalking", false); 
         }
 
-        Debug.Log("between");
+        //Debug.Log("between");
 
         if (facingRight == false && inputHorizontal > 0)
         {
@@ -76,27 +82,47 @@ public class PlayerBossMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Platform"))
+        
+            
+
+            if (collision.gameObject.CompareTag("Platform"))
+            {
+                isGrounded = true;
+            }
+            else if (collision.gameObject.CompareTag("HubEntrance"))
+            {
+                //Go back to hub
+                SceneManager.LoadScene("Hub");
+                //All this does right now is load the scene. It doesn't carry player over or save any information to a static class yet
+            }
+            else if (collision.gameObject.CompareTag("Boss02Ground"))
+            {
+                //Player fell off the platforms in Boss02 (Kill player?)
+            }
+        
+        Debug.Log("grass");
+        if (collision.gameObject.CompareTag("Boss") && canHitBoss)
         {
-            isGrounded = true;
+            canHitBoss = false;
+            Debug.Log("trigger");
+            canvasChild = getCanvas(1);
+            //Debug.Log("grass");
+            canvasChild.GetComponent<playerHealthBoss>().changeHealth(1);
+
         }
-        else if (collision.gameObject.CompareTag("HubEntrance"))
-        {
-            //Go back to hub
-            SceneManager.LoadScene("Hub");
-            //All this does right now is load the scene. It doesn't carry player over or save any information to a static class yet
-        }
-        else if (collision.gameObject.CompareTag("Boss02Ground"))
-        {
-            //Player fell off the platforms in Boss02 (Kill player?)
-        }
+
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = false;
+        }
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            canHitBoss = true;
         }
     }
     private void flip()
@@ -111,5 +137,30 @@ public class PlayerBossMovement : MonoBehaviour
             GetComponentInChildren<Sword>().swing();
         }
     }
+    public GameObject getCanvas(int c)
+    {
+        //Debug.Log("outsidce");
+        canvasChild = canvas.transform.GetChild(c).gameObject;
+        if (canvasChild != null)
+        {
+            //Debug.Log("canvas child");
+        }
+        return canvasChild;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("grass");
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+
+            Debug.Log("trigger");
+            canvasChild = getCanvas(1);
+            //Debug.Log("grass");
+            canvasChild.GetComponent<playerHealthBoss>().changeHealth(5);
+
+        }
+    }
+
 
 }
