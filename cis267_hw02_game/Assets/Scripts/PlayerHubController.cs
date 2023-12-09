@@ -56,8 +56,8 @@ public class PlayerHubController : MonoBehaviour
         hb = GetComponentInChildren<PlayerHealthBar>();
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
 
-        //givePlayerDaggerToStartWith();
-        givePlayerAxeFromOrc();
+        //Give the player a dagger to start with. (Just the same one that the thief has)
+        givePlayerDaggerFromThief();
     }
 
     // Update is called once per frame
@@ -67,33 +67,6 @@ public class PlayerHubController : MonoBehaviour
         animate();
         swingSword();
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
-    }
-
-    private void givePlayerDaggerToStartWith()
-    {
-        //GIVE PLAYER DAGGER
-
-        emptyObj = new GameObject("EmptyObjectForWeapon"); //Make empty object for it
-        emptyObj.transform.parent = handPosition.gameObject.transform; //Make the player's back arm the parent
-        emptyObj.transform.position = handPosition.transform.position; //Place at hand
-
-        if (player.transform.localScale.x == 1.5) //Facing left
-        {
-            Debug.Log("Player facing left when picking up dagger");
-            GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
-            newDagger.transform.parent = emptyObj.gameObject.transform;
-            emptyObj.transform.localScale = new Vector3(-emptyObj.transform.localScale.x, emptyObj.transform.localScale.y, emptyObj.transform.localScale.z);
-            emptyObj.transform.Rotate(0, 0, -30);
-
-
-        }
-        else if (player.transform.localScale.x == -1.5) //Facing right
-        {
-            Debug.Log("Player facing right when picking up dagger");
-            GameObject newDagger = Instantiate(daggerToGivePlayer, playerPosition.position, daggerToGivePlayer.transform.rotation);
-            newDagger.transform.parent = emptyObj.gameObject.transform;
-            emptyObj.transform.Rotate(0, 0, -30);
-        }
     }
 
     private void movePlayer()
@@ -165,6 +138,12 @@ public class PlayerHubController : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("Bread"))
+        {
+            //GIVE PLAYER BREAD
+
+            Destroy(collision.gameObject);
+        }
         else if (collision.gameObject.CompareTag("GoldSack"))
         {
             //GIVE PLAYER GOLD
@@ -221,8 +200,12 @@ public class PlayerHubController : MonoBehaviour
     //========================COLLECT THIEF'S DAGGER========================
     public void givePlayerDaggerFromThief()
     {
+        //Find and destroy any objects with the tag "EmptyObjectForHoldingItems" so the player can't hold 2 things at once
+        findAllEmptyObjectsForHolding();
+
         //GIVE PLAYER DAGGER
-        emptyObj = new GameObject("EmptyObjectForWeapon"); //Make empty object for it
+        emptyObj = new GameObject("EmptyObjectForHoldingItems"); //Make empty object for it
+        emptyObj.gameObject.tag = "EmptyObjectForHoldingItems"; //Set the tag (so we can destroy it later)
         emptyObj.transform.parent = handPosition.gameObject.transform; //Make the player's back arm the parent
         emptyObj.transform.position = handPosition.transform.position; //Place at hand
 
@@ -251,8 +234,11 @@ public class PlayerHubController : MonoBehaviour
     //========================COLLECT AXE FROM ORC========================
     public void givePlayerAxeFromOrc()
     {
+        findAllEmptyObjectsForHolding();
+
         //GIVE PLAYER AXE
-        emptyObj = new GameObject("EmptyObjectForWeapon");
+        emptyObj = new GameObject("EmptyObjectForHoldingItems");
+        emptyObj.gameObject.tag = "EmptyObjectForHoldingItems";
         emptyObj.transform.parent = handPosition.gameObject.transform;
         emptyObj.transform.position = handPosition.transform.position;
 
@@ -276,8 +262,11 @@ public class PlayerHubController : MonoBehaviour
     //========================COLLECT DAGGER FROM COW========================
     public void givePlayerDaggerFromCow()
     {
+        findAllEmptyObjectsForHolding();
+
         //GIVE PLAYER DAGGER
-        emptyObj = new GameObject("EmptyObjectForDagger2");
+        emptyObj = new GameObject("EmptyObjectForHoldingItems");
+        emptyObj.gameObject.tag = "EmptyObjectForHoldingItems";
         emptyObj.transform.parent = handPosition.gameObject.transform;
         emptyObj.transform.position = handPosition.transform.position;
 
@@ -303,8 +292,11 @@ public class PlayerHubController : MonoBehaviour
     //========================COLLECT CLUB FROM COW========================
     public void givePlayerClubFromCow()
     {
+        findAllEmptyObjectsForHolding();
+
         //GIVE PLAYER CLUB
-        emptyObj = new GameObject("EmptyObjectForClub");
+        emptyObj = new GameObject("EmptyObjectForHoldingItems");
+        emptyObj.gameObject.tag = "EmptyObjectForHoldingItems";
         emptyObj.transform.parent = handPosition.gameObject.transform;
         emptyObj.transform.position = handPosition.transform.position;
 
@@ -322,6 +314,16 @@ public class PlayerHubController : MonoBehaviour
             GameObject newClub = Instantiate(cowClubToGiveToPlayer, playerPosition.position, cowClubToGiveToPlayer.transform.rotation);
             newClub.transform.parent = emptyObj.gameObject.transform;
             newClub.GetComponent<Sword>().idleOffset = new Vector3(0.4f, 0.45f, 0);
+        }
+    }
+
+    //========================DESTROY GAME OBJECTS WITH THE TAG "EmptyObjectForHoldingItems"=======================
+    public void findAllEmptyObjectsForHolding()
+    {
+        GameObject[] emptyObjectsForHoldingItems = GameObject.FindGameObjectsWithTag("EmptyObjectForHoldingItems");
+        for (int i = 0; i < emptyObjectsForHoldingItems.Length; i++)
+        {
+            Destroy(emptyObjectsForHoldingItems[i]);
         }
     }
 }
