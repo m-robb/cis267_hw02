@@ -35,6 +35,12 @@ public class PlayerHubController : MonoBehaviour
     public GameObject cowClubToGiveToPlayer;
     private GameObject emptyObj;
 
+    //collectable count
+    public int apple;
+    public int bread;
+    public int wood;
+    public int gold;
+
 
     // Start is called before the first frame update
     void Start()
@@ -135,25 +141,25 @@ public class PlayerHubController : MonoBehaviour
         if (collision.gameObject.CompareTag("Apple"))
         {
             //GIVE PLAYER APPLE
-
+            apple++;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Bread"))
         {
             //GIVE PLAYER BREAD
-
+            bread++;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("GoldSack"))
         {
             //GIVE PLAYER GOLD
-
+            gold = gold + 5;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Wood"))
         {
             //GIVE PLAYER WOOD
-
+            wood = wood + 1;
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("DaggerCollectable"))

@@ -3,40 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - House1
-  - Platform
-  - Tree
-  - Boss01Entrance
-  - Boss02Entrance
-  - Boss03Entrance
-  - Apple
-  - HubEntrance
-  - Boss02Ground
-  - PLAYER
-  - ENEMY
-  - WEAPON
-  - SkeletonBoundary
-  - Orc
-  - OrcAxe
-  - EnemyCow
-  - CowClub
-  - CowDagger
-  - Thief
-  - Skeleton
-  - ThiefDagger
-  - DaggerCollectable
-  - GoldSack
-  - AxeCollectable
-  - CowDaggerCollectable
-  - CowClubCollectable
-  - Wood
-<<<<<<< HEAD
-  - Boss
-=======
-  - Bread
-  - EmptyObjectForHoldingItems
->>>>>>> deb66bf475e12c82520a5443e7825c7c28710497
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -58,9 +25,9 @@ TagManager:
   - 
   - 
   - 
-  - Layer 1
-  - Layer 2
-  - Layer 3
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -73,16 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Layer 1
-    uniqueID: 2425651459
-    locked: 0
-  - name: Layer 2
-    uniqueID: 4250941897
-    locked: 0
-  - name: Layer 3
-    uniqueID: 4189426099
-    locked: 0
-  - name: Player
-    uniqueID: 3701424983
     locked: 0
