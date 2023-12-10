@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3a0d5522ae2fcd04096a3e049f8e89ff
+guid: 48474ab7402a3b6488f2c134f69997b0
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Old London Alternate
+  - BlackChancery
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

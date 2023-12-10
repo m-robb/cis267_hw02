@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Menus/MainMenu.unity
+    guid: 3f0f19d3c39ae4ca691b144bac39df0a
+  - enabled: 1
     path: Assets/Scenes/Levels/Hub.unity
     guid: c1be6fbbb55d5899e924cd2d29605520
   - enabled: 1
@@ -39,6 +42,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Boss03.unity
     guid: 8eed4349259a1ecf5a332e951397b7b4
   - enabled: 1
-    path: Assets/Scenes/Menus/MainMenu.unity
-    guid: 3f0f19d3c39ae4ca691b144bac39df0a
+    path: Assets/Scenes/Menus/Credits.unity
+    guid: c7275eabae26e514a885da87f2027cb3
+  - enabled: 1
+    path: Assets/Scenes/Menus/GameOver.unity
+    guid: 0dd66478e8f82e786891fb4d946f6b40
+  - enabled: 1
+    path: Assets/Scenes/Menus/Victory.unity
+    guid: facc0b5381873e8a2bebc3ccc6140bc7
+  - enabled: 1
+    path: Assets/Scenes/Menus/Controls.unity
+    guid: 2d4cadbf3fb8af998b141f6eaeb89f5c
   m_configObjects: {}
