@@ -11,7 +11,10 @@ public class EyeBoss : MonoBehaviour
     private float startTime;
     private Vector3 targetDirection;
     public float minSpeed;
-    
+    private PlayerBossMovement pHealth;
+    public float damage;
+    private GameObject canvas;
+
 
 
     // Start is called before the first frame update
@@ -45,5 +48,27 @@ public class EyeBoss : MonoBehaviour
             rb.velocity = rb.velocity.normalized * minSpeed;
         }
         transform.eulerAngles = new Vector3(0,0,Mathf.Atan2(targetDirection.y, targetDirection.x)*Mathf.Rad2Deg);
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            pHealth = other.transform.parent.gameObject.GetComponent<PlayerBossMovement>();
+            //if (pHealth != null)
+            //{
+            //    Debug.Log("pHealth");
+            //}
+
+            if (other.gameObject.CompareTag("Player"))
+            {
+                //Debug.Log("trigger");
+                canvas = pHealth.getCanvas(0);
+                //Debug.Log("grass");
+                canvas.GetComponent<playerHealthBoss>().changeHealth(10);
+            }
+            //Debug.Log("here");
+            //Destroy(this.gameObject);
+
+        }
     }
 }

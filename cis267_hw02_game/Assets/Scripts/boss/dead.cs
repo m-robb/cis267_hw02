@@ -19,8 +19,8 @@ public class dead : MonoBehaviour
         if (phealth.health <= 0)
         {
             Debug.Log("0 Health");
-            SceneManager.LoadScene("Boss02");
-           
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
         }
     }
 }
