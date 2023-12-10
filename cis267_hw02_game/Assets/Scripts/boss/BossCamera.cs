@@ -19,6 +19,6 @@ public class BossCamera : MonoBehaviour
         //transform.position = player.transform.position;
         //Debug.Log(transform.position);
         //Debug.Log(player.transform.position);
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+        transform.position = new Vector3(player.transform.position.x,4, -10);
     }
 }

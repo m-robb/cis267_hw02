@@ -32,13 +32,16 @@ public class Boss03 : MonoBehaviour
         transform.position += Vector3.right * gameSpeed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        if (collision.gameObject.CompareTag("player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("hey");
             SceneManager.LoadScene("Boss03");
             //Destroy(collision.gameObject);
         }
     }
+        
+       
+    
 }
