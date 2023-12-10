@@ -26,7 +26,7 @@ public class playerHealthBoss : MonoBehaviour
     }
     public void changeHealth(float damage)
     {
-        Debug.Log(health);
+        //Debug.Log(health);
         health = health - damage;
         //Debug.Log(health);
     }

@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class disableBossDoor : MonoBehaviour
 {
-    private Combatant currentHealth;
     public GameObject door;
+    private playerHealthBoss bhealth;
+    public GameObject bossHealthBar;
+    public GameObject boss;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = GetComponent<Combatant>();
+        bhealth = GetComponent<playerHealthBoss>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentHealth.curHealth() == 0)
+        
+
+        if (bhealth.health <= 0)
         {
+            Debug.Log("0 Health");
             door.SetActive(true);
+            boss.SetActive(false);
         }
     }
 }

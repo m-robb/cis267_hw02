@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class Boss03 : MonoBehaviour
@@ -36,7 +37,8 @@ public class Boss03 : MonoBehaviour
         
         if (collision.gameObject.CompareTag("player"))
         {
-            Destroy(collision.gameObject);
+            SceneManager.LoadScene("Boss03");
+            //Destroy(collision.gameObject);
         }
     }
 }

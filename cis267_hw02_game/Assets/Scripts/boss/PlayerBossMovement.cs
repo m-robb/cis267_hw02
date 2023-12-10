@@ -15,7 +15,8 @@ public class PlayerBossMovement : MonoBehaviour
     public GameObject canvas;
     private GameObject canvasChild;
     private bool canHitBoss;
-    
+    private float timer;
+
 
 
 
@@ -34,8 +35,16 @@ public class PlayerBossMovement : MonoBehaviour
         movementHorizontal();
         swingSword();
         jump();
-        
+
         //Debug.Log(rb.velocity);
+        timer += Time.deltaTime;
+        if (timer > 1)
+        {
+            //canHitBoss = true;
+            timer = 0;
+            
+
+        }
     }
 
     private void movementHorizontal()
@@ -56,7 +65,7 @@ public class PlayerBossMovement : MonoBehaviour
 
         if (facingRight == false && inputHorizontal > 0)
         {
-            Debug.Log("if statement");
+            //Debug.Log("if statement");
             flip();
 
         }
@@ -97,19 +106,19 @@ public class PlayerBossMovement : MonoBehaviour
             }
             else if (collision.gameObject.CompareTag("Boss02Ground"))
             {
-                //Player fell off the platforms in Boss02 (Kill player?)
-            }
-        
-        Debug.Log("grass");
-        if (collision.gameObject.CompareTag("Boss") && canHitBoss)
-        {
-            canHitBoss = false;
-            Debug.Log("trigger");
-            canvasChild = getCanvas(1);
-            //Debug.Log("grass");
-            canvasChild.GetComponent<playerHealthBoss>().changeHealth(1);
-
+            SceneManager.LoadScene("Boss02");
         }
+        
+        //Debug.Log("grass");
+        //if (collision.gameObject.CompareTag("Boss") && canHitBoss)
+        //{
+        //    canHitBoss = false;
+        //    //Debug.Log("trigger");
+        //    canvasChild = getCanvas(1);
+        //    //Debug.Log("grass");
+        //    canvasChild.GetComponent<playerHealthBoss>().changeHealth(1);
+
+        //}
 
     }
 
@@ -120,11 +129,16 @@ public class PlayerBossMovement : MonoBehaviour
         {
             isGrounded = false;
         }
+        
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("Boss"))
         {
             canHitBoss = true;
         }
     }
+
     private void flip()
     {
         facingRight = !facingRight;
@@ -150,14 +164,14 @@ public class PlayerBossMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("grass");
-        if (collision.gameObject.CompareTag("Boss"))
+        //Debug.Log("grass");
+        if (collision.gameObject.CompareTag("Boss") && canHitBoss)
         {
 
-            Debug.Log("trigger");
+            //Debug.Log("trigger");
             canvasChild = getCanvas(1);
             //Debug.Log("grass");
-            canvasChild.GetComponent<playerHealthBoss>().changeHealth(5);
+            canvasChild.GetComponent<playerHealthBoss>().changeHealth(10);
 
         }
     }
