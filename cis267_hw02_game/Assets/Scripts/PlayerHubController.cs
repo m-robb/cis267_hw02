@@ -63,7 +63,7 @@ public class PlayerHubController : MonoBehaviour
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
 
         //Give the player a dagger to start with. (Just the same one that the thief has)
-        givePlayerDaggerFromThief();
+        givePlayerDagger1();
     }
 
     // Update is called once per frame
@@ -164,21 +164,21 @@ public class PlayerHubController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("DaggerCollectable"))
         {
-            givePlayerDaggerFromThief();
+            givePlayerDagger1();
             
             //Destroy the collectable
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("AxeCollectable"))
         {
-            givePlayerAxeFromOrc();
+            givePlayerAxe();
 
             //Destroy the collectable
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("CowDaggerCollectable"))
         {
-            givePlayerDaggerFromCow();
+            givePlayerDagger2();
 
             //Destroy the collectable
             Destroy(collision.gameObject);
@@ -186,7 +186,7 @@ public class PlayerHubController : MonoBehaviour
         //=========COLLECT COW'S CLUB===========
         else if (collision.gameObject.CompareTag("CowClubCollectable"))
         {
-            givePlayerClubFromCow();
+            givePlayerClub();
 
             //Destroy the collectable
             Destroy(collision.gameObject);
@@ -204,7 +204,7 @@ public class PlayerHubController : MonoBehaviour
 
 
     //========================COLLECT THIEF'S DAGGER========================
-    public void givePlayerDaggerFromThief()
+    public void givePlayerDagger1()
     {
         //Find and destroy any objects with the tag "EmptyObjectForHoldingItems" so the player can't hold 2 things at once
         findAllEmptyObjectsForHolding();
@@ -238,7 +238,7 @@ public class PlayerHubController : MonoBehaviour
     }
 
     //========================COLLECT AXE FROM ORC========================
-    public void givePlayerAxeFromOrc()
+    public void givePlayerAxe()
     {
         findAllEmptyObjectsForHolding();
 
@@ -266,7 +266,7 @@ public class PlayerHubController : MonoBehaviour
     }
 
     //========================COLLECT DAGGER FROM COW========================
-    public void givePlayerDaggerFromCow()
+    public void givePlayerDagger2()
     {
         findAllEmptyObjectsForHolding();
 
@@ -296,7 +296,7 @@ public class PlayerHubController : MonoBehaviour
     }
 
     //========================COLLECT CLUB FROM COW========================
-    public void givePlayerClubFromCow()
+    public void givePlayerClub()
     {
         findAllEmptyObjectsForHolding();
 
