@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public void startGame()
     {
-        SceneManager.LoadScene("Hub");
+        SceneManager.LoadScene("StartScene");
     }
 
     public void controls()
