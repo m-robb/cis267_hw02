@@ -486,6 +486,7 @@ GameObject:
   - component: {fileID: 1177380348370305308}
   - component: {fileID: 6179821267403351262}
   - component: {fileID: 5627132186278998740}
+  - component: {fileID: 7875049427881495489}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -584,6 +585,10 @@ MonoBehaviour:
     type: 3}
   cowClubToGiveToPlayer: {fileID: 4210864901907727509, guid: 5f308a8570332ce409cc450893e038ee,
     type: 3}
+  apple: 0
+  bread: 0
+  wood: 0
+  gold: 0
 --- !u!114 &1177380348370305308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBase: 300
+  health: 0
 --- !u!210 &5627132186278998740
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -621,6 +627,23 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortAtRoot: 0
+--- !u!114 &7875049427881495489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2657790854026150831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c9eb0fc4b392e1bb1bab4e4760304a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryDisplayPrefab: {fileID: 3889193963431258659, guid: 314cd21ad859e73e6ae7af005c6e9369,
+    type: 3}
+  isMainInventory: 1
+  capacity: 7
+  used: 0
 --- !u!1 &2679218905206728565
 GameObject:
   m_ObjectHideFlags: 0

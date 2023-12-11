@@ -70,6 +70,10 @@ public class PlayerHubController : MonoBehaviour
         animate();
         swingSword();
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
+	if (combatantScript.curHealth() <= 0 && SceneManager.GetActiveScene().name != "GameOver") {
+		
+		SceneManager.LoadScene("GameOver");
+	} 
     }
 
     private void movePlayer()

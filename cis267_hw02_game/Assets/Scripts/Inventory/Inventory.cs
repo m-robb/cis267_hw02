@@ -19,13 +19,25 @@ public class InventoryItem {
 	};
 
 
+	[Tooltip("The GameObject the item should be when entering the world.")]
 	public GameObject item;
+	[Tooltip("The sprite to be used when being displayed in an inventory.")]
 	public Sprite sprite;
+	[Tooltip("The ID of the item. It must be unique amongst items.")]
 	public string id; /* Must be unique amongst items! */
+	[Tooltip("The descriptive name of the item.")]
 	public string name;
+	[Tooltip("The description of the item.")]
+	[TextArea]
 	public string description;
+	[Tooltip("Cost in gold.")]
+	public int value;
+	[Tooltip("The maximum amount of this item allowed to be in one slot.")]
 	public int amountMax;
+	[Tooltip("The current amount of this item in this slot.")]
 	public int amount;
+	[Tooltip("Miscellaneous flags for items.\n"
+			+ "Consult the table in the script.")]
 	public uint flags;
 
 
@@ -38,6 +50,7 @@ public class InventoryItem {
 		id = "";
 		name = "";
 		description = "";
+		value = 0;
 		amountMax = 0;
 		amount = 0;
 		flags = ItemFlags.NONE;
@@ -52,6 +65,7 @@ public class InventoryItem {
 		this.id          = item.id;
 		this.name        = item.name;
 		this.description = item.description;
+		this.value       = item.value;
 		this.amountMax   = item.amountMax;
 		this.amount      = item.amount;
 		this.flags       = item.flags;
@@ -73,30 +87,75 @@ public class InventoryItem {
  * In most cases, do not change the capacity of an Inventory after creation.
  */
 public class Inventory : MonoBehaviour {
+	[SerializeField] private GameObject inventoryDisplayPrefab;
+	[Space(64)]
+	[Tooltip("Should only be true on one inventory.")]
+	public bool isMainInventory;
+	[Space(64)]
 	[Tooltip("The number of items able to be stored in the inventory.")]
 	[Min(1)]
 	[SerializeField] private int capacity;
 
 	[HideInInspector] public int used;
-
 	private InventoryItem[] inventory;
+
+	private GameObject inventoryDisplay;
 
 
 	void Awake() {
+		int i;
+
 		/* Create the actual inventory as soon as possible. */
 		inventory = new InventoryItem[capacity];
+
+		/* Call default constructor on every item. Used for display. */
+		for (i = 0; i < capacity; ++i) {
+			inventory[i] = new InventoryItem();
+		}
+
+		used = 0;
+
+		inventoryDisplay = Instantiate(inventoryDisplayPrefab);
+		inventoryDisplay.GetComponent<InventoryUI>().inventory = this;
+		inventoryDisplay.SetActive(false);
 	}
 
-	void Start() {
-		used = 0;
+	void Update() {
+		if (isMainInventory && Input.GetButtonDown(BUTTON_INVENTORY)) {
+			/* Toggle the inventory's visibility. */
+			inventoryDisplay.SetActive(
+					!inventoryDisplay.activeSelf);
+		}
+	}
+
+
+	public void OnTriggerEnter2D(Collider2D collision) {
+		/* If we bump into an item that can be picked up, do that. */
+		if (collision.gameObject.tag == TAG_INVENTORIABLE) {
+			add(collision.GetComponent<Inventoriable>().item);
+		}
 	}
 
 
 	/*
-	 * Returns true if the inventory still has capacity.
+	 * Returns the amount of capacity remaining in the inventory.
 	 */
 	public int capacityRemaining() {
 		return capacity - used;
+	}
+
+	/*
+	 * Returns the total capacity of the inventory.
+	 */
+	public int getCapacity() {
+		return capacity;
+	}
+
+	/*
+	 * Returns a copy of the InventoryItem at index i.
+	 */
+	public InventoryItem peek(int i) {
+		return new InventoryItem(inventory[i]);
 	}
 
 	/*
@@ -112,9 +171,6 @@ public class Inventory : MonoBehaviour {
 
 		/* See if this item is already in the inventory. */
 		for (i = j = 0; j < used && item.amount > 0; ++i) {
-			/* Skip this iteration if this space is empty. */
-			if (inventory[i] == null) { continue; }
-
 			/* Try to find match that has space remaining. */
 			if (inventory[i].id == item.id
 					&& inventory[i].remaining() > 0) {
@@ -132,7 +188,7 @@ public class Inventory : MonoBehaviour {
 		/* Find and fill the first available space if there is one. */
 		for (i = 0; i < capacity && item.amount > 0
 				&& capacityRemaining() > 0; ++i) {
-			if (inventory[i] == null) {
+			if (inventory[i].id == "") {
 				inventory[i] = new InventoryItem(item);
 				item.amount = System.Math.Max(0,
 						-inventory[i].remaining());
@@ -155,13 +211,13 @@ public class Inventory : MonoBehaviour {
 		GameObject go;
 
 		/* Guard clause that hopefully shortcircuits...? */
-		if (index >= capacity || inventory[index] == null) {
+		if (index >= capacity) {
 			return null;
 		}
 
 		go = inventory[index].item;
 
-		inventory[index] = null;
+		inventory[index] = new InventoryItem();
 
 		--used;
 
@@ -204,11 +260,6 @@ public class Inventory : MonoBehaviour {
 		for (i = 0; i < capacity; ++i) {
 			log += "\n";
 			log += "--------ITEM #" + i + "--------\n";
-
-			if (inventory[i] == null) {
-				log += "EMPTY\n";
-				continue;
-			}
 
 			log += "ID             = " + inventory[i].id + "\n";
 			log += "Name           = " + inventory[i].name + "\n";

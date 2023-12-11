@@ -45,9 +45,10 @@ public class Cursor : MonoBehaviour {
 	void Update() {
 		Vector2 direction;
 
+		direction = new Vector2(Input.GetAxisRaw(AXIS_X),
+				Input.GetAxisRaw(AXIS_Y));
+
 		/* Update position. */
-		direction.x = Input.GetAxisRaw(AXIS_X);
-		direction.y = Input.GetAxisRaw(AXIS_Y);
 		if (direction.x != 0.00f) {
 			position.x += direction.x * speed * Time.deltaTime;
 		}
