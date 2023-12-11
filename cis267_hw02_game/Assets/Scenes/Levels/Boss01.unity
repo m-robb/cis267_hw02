@@ -118181,7 +118181,7 @@ PrefabInstance:
     - target: {fileID: 1194186179509781633, guid: d8e0b3657420eaf41a375d0fc511b84f,
         type: 3}
       propertyPath: swingSpeed
-      value: 200
+      value: 420
       objectReference: {fileID: 0}
     - target: {fileID: 1194186179509781633, guid: d8e0b3657420eaf41a375d0fc511b84f,
         type: 3}
