@@ -152,4 +152,58 @@ public static class Utilities {
 	public static bool hasFlag(uint bitfield, uint flags) {
 		return (bitfield & flags) == flags;
 	}
+
+
+
+	/*
+	 ********
+	 * MATH *
+	 ********
+	 */
+
+	/*
+	 * Find and return all factors of the integer.
+	 */
+	public static Vector2Int[] factorsV2I(int x) {
+		Vector2Int[] factors;
+		int lastCheck;
+		int i, j;
+
+		lastCheck = (int)Mathf.Sqrt(x); /* Truncation is intentional. */
+
+		i = 0;
+
+		/* Find the number of factors. */
+		for (j = 1; j <= lastCheck; ++j) {
+			if (x % j == 0) {
+				++i;
+			}
+		}
+
+		factors = new Vector2Int[i];
+		i = 0;
+
+		for (j = 1; j <= lastCheck; ++j) {
+			if (x % j == 0) {
+				factors[i++] = new Vector2Int(j, x / j);
+			}
+		}
+
+		return factors;
+	}
+
+
+
+	/*
+	 *************
+	 * RESOURCES *
+	 *************
+	 */
+
+	/*
+	 * The sprite for empty inventory slots.
+	 */
+	public static readonly Sprite SPRITE_INVENTORY_EMPTY
+			= Resources.Load<Sprite>(
+			"Sprites/Custom/Inventory/Empty/EmptySprite");
 }

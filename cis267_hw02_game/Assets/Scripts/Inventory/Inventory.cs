@@ -24,6 +24,7 @@ public class InventoryItem {
 	public string id; /* Must be unique amongst items! */
 	public string name;
 	public string description;
+	public int value;
 	public int amountMax;
 	public int amount;
 	public uint flags;
@@ -34,10 +35,11 @@ public class InventoryItem {
 	 */
 	public InventoryItem() {
 		item = null;
-		sprite = null;
+		sprite = SPRITE_INVENTORY_EMPTY;
 		id = "";
 		name = "";
 		description = "";
+		value = 0;
 		amountMax = 0;
 		amount = 0;
 		flags = ItemFlags.NONE;
@@ -52,6 +54,7 @@ public class InventoryItem {
 		this.id          = item.id;
 		this.name        = item.name;
 		this.description = item.description;
+		this.value       = item.value;
 		this.amountMax   = item.amountMax;
 		this.amount      = item.amount;
 		this.flags       = item.flags;
@@ -83,8 +86,15 @@ public class Inventory : MonoBehaviour {
 
 
 	void Awake() {
+		int i;
+
 		/* Create the actual inventory as soon as possible. */
 		inventory = new InventoryItem[capacity];
+
+		/* Call default constructor on every item. Used for display. */
+		for (i = 0; i < capacity; ++i) {
+			inventory[i] = new InventoryItem();
+		}
 	}
 
 	void Start() {
@@ -93,10 +103,24 @@ public class Inventory : MonoBehaviour {
 
 
 	/*
-	 * Returns true if the inventory still has capacity.
+	 * Returns the amount of capacity remaining in the inventory.
 	 */
 	public int capacityRemaining() {
 		return capacity - used;
+	}
+
+	/*
+	 * Returns the total capacity of the inventory.
+	 */
+	public int getCapacity() {
+		return capacity;
+	}
+
+	/*
+	 * Returns a copy of the InventoryItem at index i.
+	 */
+	public InventoryItem peek(int i) {
+		return new InventoryItem(inventory[i]);
 	}
 
 	/*
@@ -112,9 +136,6 @@ public class Inventory : MonoBehaviour {
 
 		/* See if this item is already in the inventory. */
 		for (i = j = 0; j < used && item.amount > 0; ++i) {
-			/* Skip this iteration if this space is empty. */
-			if (inventory[i] == null) { continue; }
-
 			/* Try to find match that has space remaining. */
 			if (inventory[i].id == item.id
 					&& inventory[i].remaining() > 0) {
@@ -132,7 +153,7 @@ public class Inventory : MonoBehaviour {
 		/* Find and fill the first available space if there is one. */
 		for (i = 0; i < capacity && item.amount > 0
 				&& capacityRemaining() > 0; ++i) {
-			if (inventory[i] == null) {
+			if (inventory[i].id == "") {
 				inventory[i] = new InventoryItem(item);
 				item.amount = System.Math.Max(0,
 						-inventory[i].remaining());
@@ -155,13 +176,13 @@ public class Inventory : MonoBehaviour {
 		GameObject go;
 
 		/* Guard clause that hopefully shortcircuits...? */
-		if (index >= capacity || inventory[index] == null) {
+		if (index >= capacity) {
 			return null;
 		}
 
 		go = inventory[index].item;
 
-		inventory[index] = null;
+		inventory[index] = new InventoryItem();
 
 		--used;
 
@@ -204,11 +225,6 @@ public class Inventory : MonoBehaviour {
 		for (i = 0; i < capacity; ++i) {
 			log += "\n";
 			log += "--------ITEM #" + i + "--------\n";
-
-			if (inventory[i] == null) {
-				log += "EMPTY\n";
-				continue;
-			}
 
 			log += "ID             = " + inventory[i].id + "\n";
 			log += "Name           = " + inventory[i].name + "\n";
