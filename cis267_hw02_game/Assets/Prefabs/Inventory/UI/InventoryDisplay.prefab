@@ -113,7 +113,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2272723806774199886}
   - component: {fileID: 3631279269871535471}
-  - component: {fileID: 9051018602592546685}
   m_Layer: 5
   m_Name: Display
   m_TagString: Untagged
@@ -163,17 +162,3 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &9051018602592546685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7318924814070730316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77c9eb0fc4b392e1bb1bab4e4760304a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 5
-  used: 0

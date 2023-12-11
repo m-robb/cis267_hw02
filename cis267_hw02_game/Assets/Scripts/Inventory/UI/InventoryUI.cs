@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour {
 	[SerializeField] private GameObject itemCardPrefab;
-	public GameObject objectInventory;
+	/* public GameObject objectInventory; */
 	[System.NonSerialized] public Inventory inventory;
 
 	[Header("Display Options")]
@@ -24,9 +24,6 @@ public class InventoryUI : MonoBehaviour {
 
 
 	void Start() {
-		inventory = (objectInventory == null)
-				? null
-				: objectInventory.GetComponent<Inventory>();
 		displayArea = (RectTransform)GetComponent<RectTransform>()
 				.Find("Display");
 
@@ -40,8 +37,10 @@ public class InventoryUI : MonoBehaviour {
 
 	void Update() {
 		float inputVertical;
+		bool inputUse;
 
 		inputVertical = Input.GetAxisRaw(AXIS_Y);
+		inputUse = Input.GetButtonDown(BUTTON_ATTACK);
 
 		/* If the input is 0.00f or has switched sign, allow scroll. */
 		if (inputVertical == 0.00f || Mathf.Sign(inputVerticalLast)
@@ -49,7 +48,8 @@ public class InventoryUI : MonoBehaviour {
 			allowScroll = true;
 		}
 
-		if (allowScroll && inputVertical != 0.00f) {
+		if (allowScroll && inputVertical != 0.00f
+				&& inventory != null) {
 			selected += inputVertical > 0.00f ? -1 : 1;
 			allowScroll = false;
 			fill();
@@ -57,6 +57,15 @@ public class InventoryUI : MonoBehaviour {
 		}
 
 		inputVerticalLast = inputVertical;
+
+		if (inputUse) {
+			inventory.use(selected);
+		}
+	}
+
+	void OnEnable() {
+		draw();
+		fill();
 	}
 
 
@@ -68,6 +77,8 @@ public class InventoryUI : MonoBehaviour {
 		float itemHeight;
 		float itemsShowable;
 		int i;
+
+		if (inventory == null) { return; }
 
 		itemHeight = itemCardPrefab.GetComponent<RectTransform>()
 				.rect.size.y;
@@ -116,6 +127,8 @@ public class InventoryUI : MonoBehaviour {
 	 */
 	public void fill() {
 		int i;
+
+		if (inventory == null) { return; }
 
 		for (i = 0; i < itemCards.Length; ++i) {
 			ItemCardEdit itemCardEdit;

@@ -114,17 +114,22 @@ public class Inventory : MonoBehaviour {
 		}
 
 		used = 0;
-
-		inventoryDisplay = Instantiate(inventoryDisplayPrefab);
-		inventoryDisplay.GetComponent<InventoryUI>().inventory = this;
-		inventoryDisplay.SetActive(false);
 	}
 
 	void Update() {
-		if (isMainInventory && Input.GetButtonDown(BUTTON_INVENTORY)) {
+		if (isMainInventory && Input.GetButtonDown(BUTTON_INVENTORY)
+				&& inventory != null) {
 			/* Toggle the inventory's visibility. */
-			inventoryDisplay.SetActive(
-					!inventoryDisplay.activeSelf);
+			if (inventoryDisplay != null) {
+				Destroy(inventoryDisplay);
+			}
+			else {
+				inventoryDisplay = Instantiate(
+						inventoryDisplayPrefab,
+						transform);
+				inventoryDisplay.GetComponent<InventoryUI>()
+						.inventory = this;
+			}
 		}
 	}
 
@@ -156,6 +161,21 @@ public class Inventory : MonoBehaviour {
 	 */
 	public InventoryItem peek(int i) {
 		return new InventoryItem(inventory[i]);
+	}
+
+	/*
+	 *
+	 */
+	public void use(int i) {
+		if (i < 0 || i >= capacity || !isMainInventory) { return; }
+
+
+		if (hasFlag(inventory[i].flags, InventoryItem.ItemFlags.
+				CONSUMABLE)) {
+			GetComponent<Combatant>().takeDamage(-inventory[i].value
+					* -inventory[i].amount);
+			remove(i);
+		}
 	}
 
 	/*
