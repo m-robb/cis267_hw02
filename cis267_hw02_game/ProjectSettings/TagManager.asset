@@ -3,7 +3,35 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Boss02Ground
+  - HubEntrance
+  - Platform
+  - Boss
+  - WEAPON
+  - Boss02Entrance
+  - SkeletonBoundary
+  - Boss03Entrance
+  - Boss01Entrance
+  - Tree
+  - Wood
+  - Bread
+  - Thief
+  - DaggerCollectable
+  - ThiefDagger
+  - Apple
+  - GoldSack
+  - Skeleton
+  - EnemyCow
+  - CowClubCollectable
+  - CowClub
+  - CowDaggerCollectable
+  - CowDagger
+  - Orc
+  - AxeCollectable
+  - OrcAxe
+  - House1
+  - EmptyObjectForHoldingItems
   layers:
   - Default
   - TransparentFX

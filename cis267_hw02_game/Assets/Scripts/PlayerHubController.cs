@@ -61,9 +61,6 @@ public class PlayerHubController : MonoBehaviour
         //Health Bar Stuff
         hb = GetComponentInChildren<PlayerHealthBar>();
         hb.updateHealthBar(combatantScript.curHealth(), combatantScript.healthMax());
-
-        //Give the player a dagger to start with. (Just the same one that the thief has)
-        givePlayerDagger1();
     }
 
     // Update is called once per frame
