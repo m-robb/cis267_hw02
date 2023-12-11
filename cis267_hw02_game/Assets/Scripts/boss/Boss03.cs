@@ -37,7 +37,7 @@ public class Boss03 : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("hey");
-            SceneManager.LoadScene("Boss03");
+            SceneManager.LoadScene("GameOver");
             //Destroy(collision.gameObject);
         }
     }

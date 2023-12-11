@@ -106,7 +106,7 @@ public class PlayerBossMovement : MonoBehaviour
             }
             else if (collision.gameObject.CompareTag("Boss02Ground"))
             {
-            SceneManager.LoadScene("Boss02");
+            SceneManager.LoadScene("GameOver");
         }
         
         //Debug.Log("grass");
