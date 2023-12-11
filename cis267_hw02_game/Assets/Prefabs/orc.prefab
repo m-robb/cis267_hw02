@@ -201,7 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5122814cb66d8fd209aee2c77323e708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBase: 750
+  healthBase: 500
+  health: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
