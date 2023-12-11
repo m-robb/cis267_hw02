@@ -54,6 +54,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Controls.unity
     guid: 2d4cadbf3fb8af998b141f6eaeb89f5c
   - enabled: 1
-    path: Assets/Scenes/Levels/StartScene.unity
+    path: Assets/Scenes/Menus/StartScene.unity
     guid: e2aea0c87efdc6e4995fcf35bacf7c5b
   m_configObjects: {}
